@@ -1,0 +1,183 @@
+/* About-page refinements — portrait, personal statement, study timeline. */
+body[data-page="about"] .story-grid { gap: 8%; }
+body[data-page="about"] .story-photo-frame {
+  height: 545px;
+  max-width: 500px;
+  background: #ecf4ec;
+}
+body[data-page="about"] .story-photo-frame img {
+  object-fit: cover;
+  object-position: center 42%;
+  filter: brightness(1.025) contrast(1.025) saturate(1.04);
+}
+body[data-page="about"] .story-photo-frame::after {
+  background: linear-gradient(0deg, rgba(13, 43, 28, .12), transparent 45%);
+}
+.story-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 20px 25px; }
+.story-actions .text-link { display: inline-flex; align-items: center; min-height: 43px; }
+.portfolio-request {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 14px; padding: 13px 17px; min-height: 44px;
+  color: #eff8ed; background: #183e2b;
+  border: 1px solid #183e2b;
+  font: 600 10px var(--mono); letter-spacing: .095em;
+  transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.portfolio-request span { color: var(--lime); font-size: 17px; }
+.portfolio-request:hover, .portfolio-request:focus-visible {
+  background: #286344; transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(24, 62, 43, .17);
+}
+
+.about-quote {
+  position: relative; overflow: hidden; background: #092319;
+  color: #eaf2e4; padding: 78px 0 84px;
+  border-top: 1px solid rgba(172, 222, 166, .2);
+  border-bottom: 1px solid rgba(172, 222, 166, .2);
+}
+.about-quote::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 80% 36%, rgba(155, 222, 137, .13), transparent 36%),
+    repeating-radial-gradient(circle at 91% 52%, transparent 0 88px, rgba(176, 223, 165, .07) 89px, transparent 90px);
+  pointer-events: none;
+}
+.about-quote-inner { position: relative; max-width: 1160px; }
+.about-quote-kicker {
+  margin: 0 0 27px; color: var(--lime);
+  font: 500 10px var(--mono); letter-spacing: .16em;
+}
+.about-quote blockquote {
+  margin: 0; max-width: 1000px; font: italic 500 clamp(29px, 3.6vw, 53px)/1.32 var(--serif);
+  letter-spacing: -.035em;
+}
+.about-quote-signature {
+  display: flex; align-items: center; gap: 10px; margin: 30px 0 0;
+  color: #b2c8b8; font: 10px var(--mono); letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.about-quote-signature strong { color: var(--lime); font-weight: 500; }
+
+.education-section .education-grid { grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr); gap: 8%; }
+.education-intro { min-width: 0; }
+.learning-cycle {
+  position: relative; width: 100%; max-width: 475px;
+  height: 360px; margin-top: 32px; overflow: hidden;
+  background: radial-gradient(circle at 50% 48%, #e7f4df 0, #d1e2d1 56%, #c6d8c8 100%);
+  border: 1px solid #a5bea8; border-radius: 9px;
+  box-shadow: 0 18px 38px rgba(23, 64, 40, .065);
+}
+.learning-cycle::before {
+  content: ''; position: absolute; inset: 0; opacity: .5;
+  background-image: linear-gradient(rgba(46, 87, 55, .065) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 87, 55, .065) 1px, transparent 1px);
+  background-size: 33px 33px; pointer-events: none;
+}
+.learning-cycle-label, .learning-cycle-footer {
+  position: absolute; z-index: 3; margin: 0;
+  font: 500 9px var(--mono); letter-spacing: .12em; color: #3a7150;
+}
+.learning-cycle-label { top: 20px; left: 22px; right: 22px; display: flex; justify-content: space-between; }
+.learning-cycle-label span { font-size: 16px; }
+.learning-cycle-footer { bottom: 19px; left: 22px; }
+.learning-cycle-orbit {
+  position: absolute; top: 50%; left: 50%; width: 268px; height: 268px;
+  transform: translate(-50%, -50%); border-radius: 50%;
+  border: 1px dashed rgba(43, 101, 59, .38);
+}
+.learning-cycle-orbit::before {
+  content: ''; position: absolute; inset: 35px;
+  border: 1px solid rgba(43, 101, 59, .25); border-radius: 50%;
+}
+.learning-cycle-center {
+  position: absolute; top: 50%; left: 50%; width: 138px; height: 138px;
+  transform: translate(-50%, -50%); border-radius: 50%;
+  background: #143c2a; border: 2px solid #7ba888; box-shadow: 0 10px 35px rgba(21, 59, 41, .18);
+  color: #e8f3df; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  font: 600 12px var(--mono); letter-spacing: .1em;
+}
+.learning-cycle-center strong { color: var(--lime); font: 36px var(--serif); line-height: 1.1; }
+.learning-cycle-points { list-style: none; margin: 0; padding: 0; }
+.learning-point {
+  position: absolute; z-index: 2; display: flex; gap: 5px; align-items: baseline;
+  padding: 9px 11px; border-radius: 3px;
+  background: rgba(242, 250, 233, .93); border: 1px solid #b5cdb5;
+  color: #224b34; box-shadow: 0 7px 14px rgba(27, 71, 45, .065);
+  transition: transform .28s ease, background .28s ease, box-shadow .28s ease;
+}
+.learning-point span { font: 9px var(--mono); color: #588265; }
+.learning-point strong { font: 600 12px var(--sans); }
+.learning-point:hover { transform: translateY(-6px) rotate(-2deg); background: #fff; box-shadow: 0 13px 22px rgba(27, 71, 45, .15); }
+.learning-point-one { top: 68px; left: 20px; }
+.learning-point-two { top: 68px; right: 20px; }
+.learning-point-three { bottom: 65px; right: 40px; }
+.learning-point-four { bottom: 65px; left: 40px; }
+
+.education-list .education-item {
+  display: flex; align-items: center; gap: 20px; padding: 22px 0; min-height: 158px;
+  transition: background .3s ease, padding-left .3s ease;
+}
+.education-list .education-item:hover { background: rgba(244, 250, 240, .45); padding-left: 7px; }
+.institution-mark {
+  position: relative; flex: 0 0 74px; width: 74px; height: 74px;
+  display: flex; align-items: center; justify-content: center;
+  background: #f4f7f0; border: 1px solid #bfd0bd; border-radius: 17px;
+  overflow: hidden; box-shadow: 0 9px 20px rgba(25, 59, 40, .07);
+  animation: logoFloat 5.5s ease-in-out infinite;
+  transition: transform .32s ease, box-shadow .32s ease, border-color .32s ease;
+}
+.education-item:nth-child(2) .institution-mark { animation-delay: -1.3s; }
+.education-item:nth-child(3) .institution-mark { animation-delay: -2.6s; }
+.education-item:nth-child(4) .institution-mark { animation-delay: -3.9s; }
+.institution-mark img {
+  display: block; width: 100%; height: 100%; object-fit: contain;
+  padding: 6px; filter: saturate(.94);
+}
+.institution-mark img.logo-wide {
+  position: absolute; top: 3px; left: 2px;
+  width: auto; max-width: none; height: 68px;
+  padding: 0; object-fit: unset;
+}
+.education-item:hover .institution-mark {
+  animation-play-state: paused;
+  transform: translateY(-7px) rotate(-5deg) scale(1.055);
+  border-color: #7fab80; box-shadow: 0 15px 25px rgba(22, 72, 40, .16);
+}
+.education-details { min-width: 0; flex: 1; }
+.education-details h3 { font-size: clamp(17px, 1.7vw, 21px); }
+@keyframes logoFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -3px; }
+}
+@media (max-width: 1050px) {
+  body[data-page="about"] .story-photo-frame { height: 465px; }
+  .education-section .education-grid { gap: 5%; }
+  .education-list .education-item { gap: 14px; }
+  .institution-mark { flex-basis: 62px; width: 62px; height: 62px; }
+  .institution-mark img.logo-wide { height: 57px; }
+}
+@media (max-width: 700px) {
+  body[data-page="about"] .story-photo-frame { height: min(90vw, 440px); max-width: 430px; }
+  .about-quote { padding: 62px 0 67px; }
+  .about-quote blockquote { font-size: clamp(27px, 7.2vw, 38px); }
+  .education-section .education-grid { display: block; }
+  .learning-cycle { margin: 25px auto 0; }
+  .education-list { margin-top: 43px; }
+  .education-list .education-item { min-height: 138px; }
+  .education-details h3 { font-size: 18px; }
+}
+@media (max-width: 390px) {
+  .learning-cycle { height: 330px; }
+  .learning-point-one,.learning-point-four { left: 9px; }
+  .learning-point-two,.learning-point-three { right: 9px; }
+  .learning-cycle-center { width: 120px; height: 120px; }
+  .learning-point strong { font-size: 11px; }
+  .institution-mark { flex-basis: 55px; width: 55px; height: 55px; }
+  .institution-mark img.logo-wide { height: 51px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .institution-mark { animation: none; }
+  .education-item:hover .institution-mark,
+  .learning-point:hover,
+  .portfolio-request:hover { transform: none; }
+  .institution-mark, .learning-point, .portfolio-request { transition: none; }
+}
