@@ -31,13 +31,46 @@ const publications = [
 ];
 
 const timeline = [
-  {date:'CURRENT',title:'Deputy Project Manager',company:'Intelis Solution Ltd.',summary:'Project management and coordination in a multidisciplinary technology and consulting environment. Current title independently listed on the company’s official team page.',current:true},
-  {date:'JAN 2026',title:'Executive — Carbon Credit',company:'B&F Company Limited · Climate, Energy & Environment',summary:'Supported planning, technical analysis and documentation for waste-to-resource initiatives, including biogas, black soldier fly, plastic pyrolysis, SRF and eco-brick concepts.'},
-  {date:'JAN — AUG 2025',title:'GIS Expert & Senior Trainer',company:'Eptisa Servicios de Ingeniería S.L.',summary:'Prepared GIS maps and supported local disaster-preparedness planning through data analysis, municipal consultations and training.'},
-  {date:'NOV 2023 — APR 2024',title:'Intern — Programme',company:'Transparency International Bangladesh',summary:'Supported the PACTA initiative, active-citizen engagement and government web-portal analysis in Rajshahi.'},
-  {date:'APR 2022 — JAN 2023',title:'Facilitator & Master Trainer',company:'WAVE Foundation',summary:'Led citizen-led assessment training, survey supervision and community engagement; the portfolio documents training of 22 volunteers in Rajshahi.'},
-  {date:'2019 — 2024',title:'Youth Civic Engagement Volunteer',company:'Transparency International Bangladesh',summary:'Participated in local transparency and anti-corruption awareness activities, web-portal reviews and community programmes.'},
-  {date:'2018 — 2023',title:'ICT & Science Instructor',company:'KaathPencil Online Education Centre · Advance Education Centre',summary:'Taught Chemistry and ICT, with wider undergraduate tutoring experience across science, mathematics and technology subjects.'}
+  {
+    date:'SEP 2026 — PRESENT',title:'Deputy Project Manager',mark:'IS',
+    companies:[{name:'Intelis Solution Ltd.',url:'https://intelissolution.com/'}],
+    summary:'Coordinate multidisciplinary consulting and research work, expert contributions, client communication, technical reports and project deliverables.',
+    status:'CURRENT · FULL-TIME',current:true
+  },
+  {
+    date:'JAN 2026 — PRESENT',title:'Executive — Carbon Credit',logo:'assets/brands/bnf.png',logoAlt:'B&F Group logo',
+    companies:[
+      {name:'NetZero Carbon Ltd. (NZC)',url:'https://netzerocarbon.com.bd/'},
+      {name:'B&F Group',url:'https://bnf.com.bd/',label:'associated company'}
+    ],
+    summary:'Support carbon-credit and circular-economy initiatives, technical documentation and waste-to-resource project planning, including the Dhaka Resource Circulation Industrial Park.',
+    note:'FULL-TIME: 01 JAN – 19 OCT 2026  ·  PART-TIME: OCT 2026 – PRESENT',status:'CONTINUING · PART-TIME'
+  },
+  {
+    date:'JAN — AUG 2025',title:'GIS Expert & Trainer',logo:'assets/brands/eptisa.png',logoAlt:'Eptisa logo',
+    companies:[{name:'Eptisa Servicios de Ingeniería S.L.',url:'https://www.eptisa.com/'}],
+    summary:'Prepared GIS-based road maps and technical-report inputs; developed training materials and facilitated local disaster-preparedness sessions under LGCRRP.'
+  },
+  {
+    date:'NOV 2023 — APR 2024',title:'Programme Intern',mark:'TIB',
+    companies:[{name:'Transparency International Bangladesh',url:'https://www.ti-bangladesh.org/en'}],
+    summary:'Supported PACTA civic-engagement activities, field coordination, citizen participation and public-service web-portal assessments in Rajshahi.'
+  },
+  {
+    date:'APR — JUL & NOV — DEC 2022',title:'Master Trainer & Facilitator',mark:'WF',
+    companies:[{name:'WAVE Foundation',url:'https://wavefoundationbd.org/'}],
+    summary:'Trained survey volunteers, checked data quality and field schedules, consolidated survey records and facilitated citizen-led assessment workshops.'
+  },
+  {
+    date:'2019 — 2024',title:'Youth Civic Engagement Volunteer',mark:'TIB',
+    companies:[{name:'Transparency International Bangladesh',url:'https://www.ti-bangladesh.org/en'}],
+    summary:'Contributed to youth-led transparency campaigns, anti-corruption awareness, community outreach and public-service monitoring.'
+  },
+  {
+    date:'2018 — 2023',title:'ICT & Science Instructor',mark:'EDU',
+    companies:[{name:'KaathPencil Online Education Centre'},{name:'Advance Education Centre'}],
+    summary:'Taught ICT and science subjects, prepared lessons and supported student learning through interactive instruction.'
+  }
 ];
 
 const archive = [
@@ -50,6 +83,65 @@ const archive = [
 
 const $ = (selector,root=document)=>root.querySelector(selector);
 const $$ = (selector,root=document)=>[...root.querySelectorAll(selector)];
+
+/* Keep the reading order in navigation and on the home chapter grid in sync. */
+const chapterOrder=['about.html','experience.html','fieldwork.html','projects.html','research.html','gallery.html','recognition.html','contact.html'];
+$$('.desktop-nav, .mobile-nav').forEach(nav=>{
+  const about=nav.querySelector('a[href="about.html"]');
+  const experience=nav.querySelector('a[href="experience.html"]');
+  if(about&&experience)about.after(experience);
+});
+const homeChapters=$('#chapter-rail');
+if(homeChapters){
+  chapterOrder.forEach((href,index)=>{
+    const card=homeChapters.querySelector(`a[href="${href}"]`);
+    if(!card)return;
+    homeChapters.appendChild(card);
+    const number=String(index+1).padStart(2,'0');
+    if(card.querySelector('.chapter-num'))card.querySelector('.chapter-num').textContent=number;
+    if(card.querySelector('.chapter-meta small'))card.querySelector('.chapter-meta small').textContent=`EPISODE ${number}`;
+  });
+}
+
+/* An individually curated, accessible moving fieldnote beneath every subpage hero. */
+const pageMarquees={
+  about:['PEOPLE BEFORE PLANS','CURIOSITY ABOUT CITIES','CLIMATE RESILIENCE','EVIDENCE & EMPATHY','PLANNING WITH COMMUNITIES'],
+  fieldwork:['COMMUNITY CONSULTATIONS','MAPPING IN THE FIELD','LOCAL PREPAREDNESS','SURVEY & LISTENING','PEOPLE-CENTRED PLANNING'],
+  projects:['URBAN DESIGN','SMART COMMUNITIES','TRANSPORT PLANNING','SUSTAINABLE SETTLEMENTS','GEOSPATIAL SOLUTIONS'],
+  research:['FLOOD VULNERABILITY','URBAN GREEN SPACE','CLIMATE ADAPTATION','RESEARCH PUBLICATIONS','GIS-BASED EVIDENCE'],
+  gallery:['FIELD MOMENTS','PLANNING STUDIOS','COMMUNITY STORIES','VISUAL NOTES','BEHIND THE MAPS'],
+  recognition:['PUBLICATIONS','CONFERENCES','TRAINING','RESEARCH CONTRIBUTIONS','COMMUNITY SERVICE'],
+  contact:['LET’S COLLABORATE','CITIES & CLIMATE','RESEARCH PARTNERSHIPS','GIS & PLANNING','IDEAS INTO ACTION']
+};
+const experienceMarquee=[
+  {name:'INTELIS SOLUTION',url:'https://intelissolution.com/',mark:'IS'},
+  {name:'B&F GROUP',url:'https://bnf.com.bd/',logo:'assets/brands/bnf.png'},
+  {name:'NETZERO CARBON',url:'https://netzerocarbon.com.bd/',mark:'NZC'},
+  {name:'EPTISA',url:'https://www.eptisa.com/',logo:'assets/brands/eptisa.png'},
+  {name:'TRANSPARENCY INTERNATIONAL BANGLADESH',url:'https://www.ti-bangladesh.org/en',mark:'TIB'},
+  {name:'WAVE FOUNDATION',url:'https://wavefoundationbd.org/',mark:'WF'}
+];
+const pageId=document.body.dataset.page;
+const subpageHero=$('.subpage-hero');
+if(subpageHero){
+  const items=pageId==='experience'?experienceMarquee:(pageMarquees[pageId]||[]).map(name=>({name}));
+  if(items.length){
+    const marqueeItems=items.map(item=>{
+      const mark=item.logo?`<img loading="lazy" src="${item.logo}" alt=""/>`:`<span class="page-marquee-symbol">${item.mark||'✳'}</span>`;
+      const inside=`${mark}<span>${item.name}</span><span class="page-marquee-separator">✳</span>`;
+      return item.url?`<a class="page-marquee-item" href="${item.url}" target="_blank" rel="noopener noreferrer" aria-label="Visit ${item.name}">${inside}</a>`:`<span class="page-marquee-item">${inside}</span>`;
+    }).join('');
+    subpageHero.insertAdjacentHTML('afterend',`<section class="page-marquee" aria-label="${pageId==='experience'?'Organisations in my professional journey':'Themes on this page'}"><div class="page-marquee-track"><div class="page-marquee-group">${marqueeItems}</div><div class="page-marquee-group" aria-hidden="true" inert>${marqueeItems}</div></div></section>`);
+  }
+  const newEpisode=chapterOrder.indexOf(`${pageId}.html`)+1;
+  if(newEpisode>0){
+    const prefix=String(newEpisode).padStart(2,'0');
+    const index=subpageHero.querySelector('.subpage-index');
+    if(index)index.textContent=`FIELDNOTES / ${prefix}`;
+    const sectionEpisode=$('main .section-heading .eyebrow');
+    if(sectionEpisode&&/^EPISODE \d{2}/.test(sectionEpisode.textContent))sectionEpisode.textContent=sectionEpisode.textContent.replace(/^EPISODE \d{2}/,`EPISODE ${prefix}`);
+  }
+}
 let introTimer;
 let lastFocused = null;
 const intro = $('#intro');
@@ -111,7 +203,11 @@ function renderPublications(type='all'){
 if($('#publications-grid'))renderPublications();
 $('#publication-filters')?.addEventListener('click',e=>{const button=e.target.closest('button[data-type]');if(!button)return;$$('#publication-filters button').forEach(b=>b.classList.remove('is-active'));button.classList.add('is-active');renderPublications(button.dataset.type);});
 
-if($('#timeline'))$('#timeline').innerHTML=timeline.map(item=>`<article class="timeline-item"><div class="timeline-time">${item.date}</div><div><h3>${item.title}</h3><span class="timeline-company">${item.company}</span><p>${item.summary}</p>${item.current?'<span class="timeline-now">CURRENT ROLE · VERIFIED</span>':''}</div></article>`).join('');
+if($('#timeline'))$('#timeline').innerHTML=timeline.map(item=>{
+  const logo=item.logo?`<img src="${item.logo}" alt="${item.logoAlt||''}" loading="lazy">`:`<span>${item.mark}</span>`;
+  const companies=item.companies.map(company=>company.url?`<a href="${company.url}" target="_blank" rel="noopener noreferrer">${company.name}<span aria-hidden="true"> ↗</span></a>${company.label?`<small>${company.label}</small>`:''}`:`<span>${company.name}</span>`).join('<span class="timeline-company-divider">/</span>');
+  return `<article class="timeline-item${item.current?' is-current':''}"><div class="timeline-time">${item.date}</div><div class="timeline-main"><div class="timeline-brand${item.logo?' has-image':''}${item.logo?.includes('bnf')?' is-dark':''}" aria-hidden="true">${logo}</div><div class="timeline-copy"><h3>${item.title}</h3><div class="timeline-company">${companies}</div><p>${item.summary}</p>${item.note?`<p class="timeline-period">${item.note}</p>`:''}${item.status?`<span class="timeline-now${item.current?'':' is-secondary'}">${item.status}</span>`:''}</div></div></article>`;
+}).join('');
 
 function renderGallery(filter='all'){
   const chosen=archive.map((item,i)=>({...item,index:i})).filter(item=>filter==='all'||item.group===filter);
