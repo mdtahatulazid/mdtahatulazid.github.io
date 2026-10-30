@@ -1,0 +1,138 @@
+/* Fieldnotes: an independent, source-grounded personal portfolio. */
+const ASSET = 'assets/';
+const videoUrl = 'https://www.facebook.com/mdtahatulazid.litun01/videos/1319189045419602';
+const portfolioRequest = 'mailto:litunurp18@gmail.com?subject=Request%20for%20Portfolio';
+
+const projects = [
+  {id:'shaheb-bazar',category:'planning',type:'ACADEMIC PLANNING STUDIO',place:'Rajshahi, Bangladesh',title:'Shaheb Bazar City Centre',subtitle:'Urban renewal & market-area revitalisation',image:'studio-06.jpg',page:6,summary:'A proposed urban-renewal concept for Rajshahi’s Shaheb Bazar and RDA Market precinct, responding to traffic conflict, narrow walkways and unorganised commerce.',context:'The study documented existing street-level conditions before developing a proposed site plan that considers pedestrian access, public space, street layout, parking and organised commercial activity. The design is an academic proposal, not a completed construction project.',contribution:'Urban planning studio analysis, site assessment, design visualisation and feasibility-oriented presentation.',tags:['Urban renewal','Site planning','Public space']},
+  {id:'smart-village',category:'planning',type:'ACADEMIC DESIGN CONCEPT',place:'Bangladesh',title:'Smart Communal Living',subtitle:'Bridging tradition and innovation in villages',image:'studio-09.jpg',page:9,summary:'A smart-village planning concept integrating traditional communal life with better access to social infrastructure, connectivity and sustainable technology.',context:'The concept explores how community identity and new technology can coexist in rural settlements. Project materials include proposed designs and a separate original video.',contribution:'Conceptual rural planning, visual presentation and exploration of community-oriented development interventions.',tags:['Rural planning','Smart villages','Sustainability'],video:videoUrl},
+  {id:'transport',category:'planning',type:'ACADEMIC TRANSPORT STUDIO',place:'Rajshahi, Bangladesh',title:'Nowdapara Amchottor Intersection',subtitle:'Intersection capacity & level-of-service assessment',image:'studio-08.jpg',page:8,summary:'Traffic-volume and intersection performance assessment using survey data, flow calculations and level-of-service analysis.',context:'The study examines movement at the Aam Chattar intersection in Rajshahi, using directional vehicle counts, peak-hour considerations, volume-to-capacity ratios and traffic-performance indicators.',contribution:'Transport planning studio survey analysis, level-of-service assessment and traffic visualisation.',tags:['Transportation','Traffic surveys','Spatial analysis']},
+  {id:'kumarapara',category:'planning',type:'ACADEMIC RURAL PLANNING STUDIO',place:'Kumarapara, Premtoli, Rajshahi',title:'Community Health & Wellbeing',subtitle:'Rural health access and social resilience',image:'studio-07.jpg',page:7,summary:'A community study examining emotional, psychological and social wellbeing among traditional potter households.',context:'The portfolio describes a survey of 30 respondents and explores how access to health facilities and social support relates to community wellbeing and cultural livelihoods.',contribution:'Community-focused rural planning study, survey interpretation and presentation of wellbeing indicators.',tags:['Community wellbeing','Rural health','Survey research']},
+  {id:'eptisa',category:'professional',type:'PROFESSIONAL ASSIGNMENT',place:'Southeastern Bangladesh',title:'Local Preparedness Planning',subtitle:'GIS mapping & municipal consultation',image:'field-22.jpg',page:22,summary:'GIS and facilitation support for hazard-specific local preparedness plans across multiple municipalities.',context:'While working with Eptisa on the Local Government COVID-19 Response and Recovery Project, Tahatul helped produce map layouts, analyse planning data and facilitate municipal consultations on flood, landslide, cyclone and lightning risks.',contribution:'GIS Expert & Senior Trainer: maps, stakeholder sessions, field information management and Local Preparedness Plan support.',tags:['GIS','Disaster preparedness','Municipal planning']},
+  {id:'heat',category:'field',type:'FIELD RESEARCH',place:'Rajshahi City, Bangladesh',title:'Urban Heat Hotspot Study',subtitle:'Perceptions, impacts & adaptive capacity',image:'field-29.jpg',page:29,summary:'Field-survey support for a research project on urban heat-wave perceptions and community capacity in Rajshahi.',context:'The research investigates the lived effects of heat exposure in urban hotspots. The supplied portfolio documents participation in field data collection under the RUET research team.',contribution:'Field enumerator; supported respondent engagement and structured survey data collection.',tags:['Urban heat','Climate vulnerability','Field survey']},
+  {id:'housing',category:'field',type:'FIELD RESEARCH',place:'Rajshahi City, Bangladesh',title:'Sustainable Housing Affordability',subtitle:'Understanding the experiences of urban renters',image:'field-30.jpg',page:30,summary:'Survey work focused on housing affordability and the sustainability challenges experienced by renters in Rajshahi.',context:'The study examined how renters navigate cost, access and housing quality within a rapidly changing city. Project documentation identifies a BUET URP research context.',contribution:'Field enumerator for household-level data collection and survey implementation.',tags:['Housing','Urban livelihoods','Community surveys']},
+  {id:'medical-waste',category:'field',type:'FIELD RESEARCH',place:'Rajshahi City, Bangladesh',title:'Medical Waste Governance',subtitle:'Accountability in health-sector waste systems',image:'field-31.jpg',page:31,summary:'A field investigation of how healthcare facilities manage and dispose of medical waste, with a focus on governance.',context:'The documented study consulted three public and three private medical facilities and the relevant city-corporation authority about waste segregation, handling and oversight.',contribution:'Field enumerator for information collection and governance-focused research.',tags:['Waste management','Governance','Public health']}
+];
+
+const publications = [
+  {year:'2026',type:'chapter',title:'Quantifying Green Infrastructure’s Contribution to Urban Sustainability in Rajshahi City Using GIS-Based Multi-criteria Analysis',venue:'Green Policies for a Sustainable World · Springer',url:'https://doi.org/10.1007/978-3-032-08828-4_8'},
+  {year:'2026',type:'chapter',title:'Integrating Urban Green Space Policies for Sustainable Environmental Quality: A Case Study of Dhaka',venue:'Green Policies for a Sustainable World · Springer',url:'https://www.researchgate.net/publication/400057054_Integrating_Urban_Green_Space_Policies_for_Sustainable_Environmental_Quality_A_Case_Study_of_Dhaka'},
+  {year:'2026',type:'conference',title:'Integrating Nature-Based Solutions for Urban Heat Mitigation: A Geospatial Study in Dhaka',venue:'8th International Conference on Sustainable Development',url:'https://www.researchgate.net/publication/404775309_Integrating_Nature-Based_Solutions_for_Urban_Heat_Mitigation_A_Geospatial_Study_in_Dhaka_for_presentation_at_the_8th_International_Conference_on_Sustainable_Development'},
+  {year:'2025',type:'chapter',title:'Geospatial Analysis of Flood and Drought Vulnerability in Rajshahi District: A Formal Regionalization and GIS-Based Approach for Upazila-Level Assessment',venue:'Surface, Sub-Surface Hydrology and Management · Springer',url:'https://doi.org/10.1007/978-3-031-62376-9_11'},
+  {year:'2025',type:'journal',title:'Performances of Standing Committees of Union Parishad in Bangladesh: A Descriptive Analysis',venue:'Research article',url:'https://www.researchgate.net/publication/396047753_Per-formances_of_standing_committees_of_Union_Parishad_UP_in_Bangladesh_A_descriptive_analysis'},
+  {year:'2024',type:'conference',title:'Women and Flood Resilience in Feni: Vulnerabilities, Empowerment, and Gender-Sensitive Adaptation',venue:'10th International Conference on Water and Flood Management',url:'https://www.researchgate.net/publication/387056930_Women_and_Flood_Resilience_in_Feni_Vulnerabilities_Empowerment_and_Gender-Sensitive_Adaptation'},
+  {year:'2024',type:'conference',title:'Evaluating the Impact of Padma Garden and Other Riverside Areas on River Bank Erosion and Sustainable Infrastructure Development in Rajshahi',venue:'10th International Conference on Water and Flood Management',url:'https://www.researchgate.net/publication/387057848_Evaluating_the_Impact_of_Padma_Garden_and_Other_Riverside_Areas_on_River_Bank_Erosion_and_Sustainable_Infrastructure_Development_in_Rajshahi'},
+  {year:'2024',type:'conference',title:'Assessing the Impact of River Erosion on Human Mobility: A Case Study of Khidirpur Char, Rajshahi',venue:'10th International Conference on Water and Flood Management',url:'https://www.researchgate.net/publication/387057081_Assessing_The_Impact_of_River_Erosion_on_Human_Mobility_Challenges_and_Solutions_-_A_Case_Study_on_Khidirpur_Char_Rajshahi'},
+  {year:'2024',type:'conference',title:'Assessing Land Use and Land Cover Changes and Climatic Impacts with an NBS Framework in Cox’s Bazar',venue:'10th International Conference on Water and Flood Management',url:'https://www.researchgate.net/publication/387498104_Assessing_Land_Use_and_Land_Cover_Changes_and_Climatic_Impacts_with_NBS_Framework_in_Cox%27s_Bazar_Bangladesh'},
+  {year:'2024',type:'journal',title:'Passengers’ Satisfaction Level on Bus Services in Chittagong City Using Multiple Linear Regression',venue:'Journal of Transportation Systems · 9(1)',url:'https://www.researchgate.net/publication/380167750_Passengers_Satisfaction_Level_on_Bus_Services_in_Chittagong_City_Using_Multiple_Linear_Regression'},
+  {year:'2024',type:'conference',title:'Assessing the Socio-economic Implications of Climate Change on Betel Leaf Cultivation in Mohanpur Upazila, Rajshahi',venue:'7th ICCESD · KUET',url:'https://www.researchgate.net/publication/378138862_ASSESSING_THE_SOCIO-ECONOMIC_IMPLICATIONS_OF_CLIMATE_CHANGE_ON_BETEL_LEAF_CULTIVATION_IN_MOHANPUR_UPAZILA_RAJSHAHI'},
+  {year:'2023',type:'conference',title:'Impact of Traffic Congestion in Roundabout: A Study on Gazipur Chowrasta',venue:'4th International Conference on Planning, Architecture & Civil Engineering',url:'https://www.researchgate.net/publication/373255029_Impact_of_Traffic_Congestion_in_Roundabout_A_study_on_Gazipur_Chowrasta'},
+  {year:'2023',type:'journal',title:'Critical Gap Distribution Estimation for Different Types of Vehicles in Rajshahi City, Bangladesh',venue:'Journal of Interior Designing and Regional Planning · 8(1)',url:'https://www.researchgate.net/publication/368287446_Critical_Gap_Distribution_Estimation_for_Different_Types_of_Vehicles_in_Rajshahi_City_Bangladesh'}
+];
+
+const timeline = [
+  {date:'CURRENT',title:'Deputy Project Manager',company:'Intelis Solution Ltd.',summary:'Project management and coordination in a multidisciplinary technology and consulting environment. Current title independently listed on the company’s official team page.',current:true},
+  {date:'JAN 2026',title:'Executive — Carbon Credit',company:'B&F Company Limited · Climate, Energy & Environment',summary:'Supported planning, technical analysis and documentation for waste-to-resource initiatives, including biogas, black soldier fly, plastic pyrolysis, SRF and eco-brick concepts.'},
+  {date:'JAN — AUG 2025',title:'GIS Expert & Senior Trainer',company:'Eptisa Servicios de Ingeniería S.L.',summary:'Prepared GIS maps and supported local disaster-preparedness planning through data analysis, municipal consultations and training.'},
+  {date:'NOV 2023 — APR 2024',title:'Intern — Programme',company:'Transparency International Bangladesh',summary:'Supported the PACTA initiative, active-citizen engagement and government web-portal analysis in Rajshahi.'},
+  {date:'APR 2022 — JAN 2023',title:'Facilitator & Master Trainer',company:'WAVE Foundation',summary:'Led citizen-led assessment training, survey supervision and community engagement; the portfolio documents training of 22 volunteers in Rajshahi.'},
+  {date:'2019 — 2024',title:'Youth Civic Engagement Volunteer',company:'Transparency International Bangladesh',summary:'Participated in local transparency and anti-corruption awareness activities, web-portal reviews and community programmes.'},
+  {date:'2018 — 2023',title:'ICT & Science Instructor',company:'KaathPencil Online Education Centre · Advance Education Centre',summary:'Taught Chemistry and ICT, with wider undergraduate tutoring experience across science, mathematics and technology subjects.'}
+];
+
+const archive = [
+  {image:'studio-06.jpg',label:'Shaheb Bazar — proposed site plan',sub:'PLANNING STUDIO · PDF P. 06',group:'studio'},
+  {image:'studio-09.jpg',label:'Smart Communal Living',sub:'RURAL DESIGN · PDF P. 09',group:'studio'},
+  {image:'field-22.jpg',label:'Municipal consultations',sub:'DISASTER PREPAREDNESS · PDF P. 22',group:'field'},
+  {image:'field-29.jpg',label:'Urban heat survey',sub:'FIELD RESEARCH · PDF P. 29',group:'field'},
+  {image:'field-24.jpg',label:'Volunteer training',sub:'COMMUNITY ENGAGEMENT · PDF P. 24',group:'community'}
+].concat(window.HYBRID_GALLERY||[]);
+
+const $ = (selector,root=document)=>root.querySelector(selector);
+const $$ = (selector,root=document)=>[...root.querySelectorAll(selector)];
+let introTimer;
+let lastFocused = null;
+const intro = $('#intro');
+const chooser = $('#chooser');
+const site = $('#site');
+
+const rememberIntro = () => {try{sessionStorage.setItem('tahatul-intro-seen','1');}catch{}};
+const hasSeenIntro = () => {try{return sessionStorage.getItem('tahatul-intro-seen')==='1';}catch{return false;}};
+function showChooser(){if(!intro||!chooser)return;rememberIntro();clearTimeout(introTimer);intro.classList.add('is-hidden');chooser.classList.remove('is-hidden');document.body.classList.add('locked');}
+function startExperience(mode){
+  if(!intro||!chooser)return;
+  chooser.classList.add('is-hidden');intro.classList.add('is-hidden');site.classList.remove('is-inert');document.body.classList.remove('locked');
+  const destinations={research:'research.html',partner:'fieldwork.html',explorer:'gallery.html'};
+  if(destinations[mode]){window.location.href=destinations[mode];return;}
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function replay(){if(!intro||!chooser)return;site.classList.add('is-inert');chooser.classList.add('is-hidden');intro.classList.remove('is-hidden');document.body.classList.add('locked');window.scrollTo({top:0,behavior:'instant'});introTimer=setTimeout(showChooser,4200);}
+if(intro && chooser){
+  $('#skip-intro')?.addEventListener('click',showChooser);
+  $$('.profile').forEach(button=>button.addEventListener('click',()=>startExperience(button.dataset.profile)));
+  $('#switch-profile')?.addEventListener('click',showChooser);
+  $('#watch-again')?.addEventListener('click',replay);
+  if(window.location.hash==='#profiles')showChooser();
+  else if(hasSeenIntro()){
+    intro.classList.add('is-hidden');chooser.classList.add('is-hidden');site.classList.remove('is-inert');document.body.classList.remove('locked');
+  } else {
+    introTimer=setTimeout(showChooser,4200);document.body.classList.add('locked');
+  }
+}
+
+function renderProjects(filter='all'){
+  const chosen=filter==='all'?projects:projects.filter(p=>p.category===filter);
+  $('#projects-grid').innerHTML=chosen.map((p,i)=>`<article class="project-card"><div class="project-media"><img loading="lazy" src="${ASSET+p.image}" alt="Original portfolio page showing ${p.title}"><span class="project-type">${p.type}</span><span class="project-media-number">${String(i+1).padStart(2,'0')}</span></div><div class="project-body"><span class="project-eyebrow">${p.place.toUpperCase()}</span><h3>${p.title}</h3><p>${p.summary}</p><div class="project-bottom"><span>${p.subtitle}</span><button type="button" data-project="${p.id}" aria-label="View ${p.title} project details">VIEW CASE ↗</button></div></div></article>`).join('');
+}
+if($('#projects-grid'))renderProjects();
+$('#project-filters')?.addEventListener('click',e=>{const button=e.target.closest('button[data-filter]');if(!button)return;$$('#project-filters button').forEach(b=>b.classList.remove('is-active'));button.classList.add('is-active');renderProjects(button.dataset.filter);});
+
+function renderPublications(type='all'){
+  const chosen=type==='all'?publications:publications.filter(p=>p.type===type);
+  const display={chapter:'BOOK CHAPTER',journal:'JOURNAL ARTICLE',conference:'CONFERENCE PAPER'};
+  $('#publications-grid').innerHTML=chosen.map(p=>`<article class="publication-card"><div class="pub-top"><span class="pub-type">${display[p.type]}</span><span class="pub-year">${p.year}</span></div><h3>${p.title}</h3><p>${p.venue}</p><a href="${p.url}" target="_blank" rel="noopener noreferrer">VIEW PUBLICATION ↗</a></article>`).join('');
+}
+if($('#publications-grid'))renderPublications();
+$('#publication-filters')?.addEventListener('click',e=>{const button=e.target.closest('button[data-type]');if(!button)return;$$('#publication-filters button').forEach(b=>b.classList.remove('is-active'));button.classList.add('is-active');renderPublications(button.dataset.type);});
+
+if($('#timeline'))$('#timeline').innerHTML=timeline.map(item=>`<article class="timeline-item"><div class="timeline-time">${item.date}</div><div><h3>${item.title}</h3><span class="timeline-company">${item.company}</span><p>${item.summary}</p>${item.current?'<span class="timeline-now">CURRENT ROLE · VERIFIED</span>':''}</div></article>`).join('');
+
+function renderGallery(filter='all'){
+  const chosen=archive.map((item,i)=>({...item,index:i})).filter(item=>filter==='all'||item.group===filter);
+  $('#archive-grid').innerHTML=chosen.map(item=>`<button class="archive-tile" type="button" data-image-index="${item.index}" aria-label="View ${item.label} portfolio image"><img src="${ASSET+item.image}" alt="${item.label}" loading="lazy"><span class="archive-caption"><span><small>${item.sub}</small><strong>${item.label}</strong></span><b>↗</b></span></button>`).join('');
+}
+if($('#archive-grid'))renderGallery();
+$('#gallery-filters')?.addEventListener('click',e=>{const button=e.target.closest('[data-gallery-filter]');if(!button)return;$$('#gallery-filters button').forEach(b=>b.classList.remove('is-active'));button.classList.add('is-active');renderGallery(button.dataset.galleryFilter);});
+
+const modal = $('#detail-modal');
+function openProject(id){
+  const p=projects.find(item=>item.id===id);if(!p)return;
+  lastFocused=document.activeElement;
+  $('#modal-body').innerHTML=`<div class="modal-header"><p class="eyebrow">${p.type} / ${p.place.toUpperCase()}</p><h2 id="modal-title">${p.title}</h2><p>${p.summary}</p></div><img class="modal-img" src="${ASSET+p.image}" alt="Portfolio documentation for ${p.title}"><div class="modal-content"><div><h3>Project context</h3><p>${p.context}</p><h3>Documented contribution</h3><p>${p.contribution}</p><div class="modal-actions"><a href="${portfolioRequest}">REQUEST ORIGINAL PORTFOLIO ↗</a>${p.video?`<a class="secondary" href="${p.video}" target="_blank" rel="noopener noreferrer">WATCH PROJECT VIDEO ↗</a>`:''}</div></div><div><h3>Focus areas</h3><div class="modal-tags">${p.tags.map(tag=>`<span>${tag}</span>`).join('')}</div><p style="margin-top:23px">Visual from the supplied portfolio PDF, page ${p.page}. Professional projects and academic concepts are distinguished throughout the site.</p></div></div>`;
+  modal.classList.remove('is-hidden');document.body.classList.add('locked');$('.modal-close').focus();
+}
+function closeModal(){modal.classList.add('is-hidden');document.body.classList.remove('locked');lastFocused?.focus();}
+$('#projects-grid')?.addEventListener('click',e=>{const button=e.target.closest('[data-project]');if(button)openProject(button.dataset.project);});
+$('.modal-close')?.addEventListener('click',closeModal);
+$('.modal-backdrop')?.addEventListener('click',closeModal);
+
+const lightbox = $('#image-lightbox');
+function openLightbox(index){const item=archive[index];if(!item)return;lastFocused=document.activeElement;$('#lightbox-img').src=ASSET+item.image;$('#lightbox-img').alt=item.label;$('#lightbox-caption').textContent=item.label+' · '+item.sub;lightbox.classList.remove('is-hidden');document.body.classList.add('locked');$('#lightbox-close').focus();}
+function closeLightbox(){lightbox.classList.add('is-hidden');document.body.classList.remove('locked');lastFocused?.focus();}
+$('#archive-grid')?.addEventListener('click',e=>{const button=e.target.closest('[data-image-index]');if(button)openLightbox(Number(button.dataset.imageIndex));});
+$('#lightbox-close')?.addEventListener('click',closeLightbox);
+lightbox?.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
+$$('.imported-content .strip img').forEach(img=>{
+  img.tabIndex=0;img.setAttribute('role','button');img.setAttribute('aria-label','Expand portfolio image');
+  const expand=()=>{const relative=img.getAttribute('src')?.replace(/^assets\//,'');const idx=archive.findIndex(item=>item.image===relative);if(idx>=0)openLightbox(idx);};
+  img.addEventListener('click',expand);
+  img.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();expand();}});
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(modal&&!modal.classList.contains('is-hidden'))closeModal();else if(lightbox&&!lightbox.classList.contains('is-hidden'))closeLightbox();else if(chooser&&!chooser.classList.contains('is-hidden')&&!site.classList.contains('is-inert')){chooser.classList.add('is-hidden');document.body.classList.remove('locked');}}});
+
+const menuToggle=$('#menu-toggle');
+menuToggle.addEventListener('click',()=>{const opened=$('#mobile-nav').classList.toggle('is-hidden')===false;menuToggle.setAttribute('aria-expanded',String(opened));});
+$$('#mobile-nav a').forEach(a=>a.addEventListener('click',()=>{$('#mobile-nav').classList.add('is-hidden');menuToggle.setAttribute('aria-expanded','false');}));
+
+/* Ensure the opening screen can be skipped instantly by keyboard. */
+intro?.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target===intro)showChooser();});
