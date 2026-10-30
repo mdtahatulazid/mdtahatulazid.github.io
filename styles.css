@@ -199,3 +199,63 @@ a.page-marquee-item:hover,a.page-marquee-item:focus-visible{color:#c5f17d;transf
 @media(max-width:980px){.timeline-item{grid-template-columns:128px minmax(0,1fr);gap:16px}.timeline-brand{flex-basis:56px;width:56px;height:56px}.timeline-main{gap:13px}}
 @media(max-width:700px){.page-marquee{height:62px;font-size:9px}.page-marquee-group{gap:24px;padding-right:24px}.page-marquee-item{gap:10px}.page-marquee-item img{height:32px;width:43px}.page-marquee-item img[src*="eptisa"]{width:70px}.page-marquee-separator{padding-left:6px}.timeline-item{grid-template-columns:1fr;gap:13px;padding:28px 0}.timeline-time{font-size:10px;padding:0}.timeline-main{gap:12px}.timeline-brand{flex-basis:50px;width:50px;height:50px;border-radius:10px}.timeline-copy h3{font-size:22px}.timeline-company{gap:5px 8px;font-size:10px}.timeline-copy>p{font-size:12px}.timeline-copy .timeline-period{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.page-marquee-track{animation:none}.page-marquee{overflow-x:auto}.page-marquee-group[aria-hidden="true"]{display:none}.page-marquee-item{transition:none}}
+
+/* Experience chapter — an editorial two-column mosaic with full brand identities. */
+body[data-page="experience"] .journey-section{background:linear-gradient(155deg,#e8ede3 0%,#dce8d9 58%,#e9eee3 100%)}
+body[data-page="experience"] .journey-layout{display:block;margin-top:43px}
+body[data-page="experience"] .journey-intro{display:grid;grid-template-columns:1.12fr .88fr;column-gap:7%;align-items:end;padding:15px 0 35px;margin-bottom:22px;border-bottom:1px solid #a8bfa8}
+body[data-page="experience"] .journey-number{grid-column:1 / -1;font-size:11px;letter-spacing:.13em;margin-bottom:12px}
+body[data-page="experience"] .journey-intro h3{font-size:clamp(43px,5.2vw,78px);line-height:1.02;margin:0;max-width:770px}
+body[data-page="experience"] .journey-quote{max-width:380px;margin:0 0 8px;justify-self:end;font-size:21px}
+body[data-page="experience"] .timeline{border:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:stretch}
+body[data-page="experience"] .timeline-item{position:relative;isolation:isolate;display:flex;flex-direction:column;min-width:0;min-height:354px;gap:0;padding:25px 28px 23px;background:#f9fbf5;border:1px solid #c2d1c0;border-radius:3px;box-shadow:0 8px 28px #1a452013;overflow:hidden;transform-origin:center;animation:experience-card-in .65s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(var(--card-index) * 70ms);transition:transform .32s cubic-bezier(.22,1,.36,1),box-shadow .32s ease,border-color .32s ease,background .32s ease}
+body[data-page="experience"] .timeline-item:nth-child(4n+2),body[data-page="experience"] .timeline-item:nth-child(4n+3){background:#f1f7ee}
+body[data-page="experience"] .timeline-item::before{content:"";position:absolute;z-index:-1;inset:0 auto 0 0;width:3px;background:#518660;transform:scaleY(.12);transform-origin:bottom;opacity:.6;transition:transform .35s ease}
+body[data-page="experience"] .timeline-item::after{content:"";position:absolute;z-index:-1;width:195px;height:195px;border:1px solid #9fbea455;border-radius:50%;right:-105px;bottom:-124px;transition:transform .45s ease}
+body[data-page="experience"] .timeline-item:hover,body[data-page="experience"] .timeline-item:focus-within{transform:translateY(-8px) rotate(-.18deg);border-color:#84b08a;background:#fff;box-shadow:0 24px 50px #1b452328}
+body[data-page="experience"] .timeline-item:hover::before,body[data-page="experience"] .timeline-item:focus-within::before{transform:scaleY(1)}
+body[data-page="experience"] .timeline-item:hover::after,body[data-page="experience"] .timeline-item:focus-within::after{transform:translate(-25px,-14px)}
+body[data-page="experience"] .timeline-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:21px}
+body[data-page="experience"] .timeline-card-index{font:9px/1.6 var(--mono);letter-spacing:.12em;color:#76977b}
+body[data-page="experience"] .timeline-time{font:10px/1.6 var(--mono);letter-spacing:.055em;color:#3c7950;margin:0;padding:0;text-align:right}
+body[data-page="experience"] .timeline-identity{display:flex;align-items:center;gap:19px;min-width:0;margin:0 0 19px}
+body[data-page="experience"] .timeline-brand{position:relative;display:flex;align-items:center;justify-content:center;flex:none;width:100px;height:74px;margin:0;padding:0;background:#fff;border:1px solid #cbdccc;border-radius:8px;box-shadow:0 5px 14px #1b482015;overflow:hidden;outline:none;transition:border-color .25s ease,box-shadow .25s ease}
+body[data-page="experience"] .timeline-brand:hover,body[data-page="experience"] .timeline-brand:focus-visible{border-color:#5c9569;box-shadow:0 0 0 3px #9aca8f50}
+body[data-page="experience"] .timeline-brand img{display:block;width:100%;height:100%;max-width:none;object-fit:contain;object-position:center;transition:transform .25s ease}
+body[data-page="experience"] .timeline-brand:hover img{transform:scale(1.06)}
+body[data-page="experience"] .timeline-brand--intelis{width:123px;height:63px;background:#f7f7f7}
+body[data-page="experience"] .timeline-brand--netzero{width:78px;height:78px;background:#f7fff0}
+body[data-page="experience"] .timeline-brand--netzero img{width:96%;height:96%}
+body[data-page="experience"] .timeline-brand--bnf{width:88px;height:77px;background:#050d09;border-color:#284a35}
+body[data-page="experience"] .timeline-brand--bnf img{width:91%;height:91%}
+body[data-page="experience"] .timeline-brand--eptisa{width:127px;height:55px;background:white;border-color:#d6e0d4}
+body[data-page="experience"] .timeline-brand--eptisa img{transform:scale(1.07);object-fit:contain}
+body[data-page="experience"] .timeline-brand--eptisa:hover img{transform:scale(1.12)}
+body[data-page="experience"] .timeline-brand--tib{width:111px;height:70px;background:#fff}
+body[data-page="experience"] .timeline-brand--tib img{object-fit:cover;transform:scale(1.72)}
+body[data-page="experience"] .timeline-brand--tib:hover img{transform:scale(1.85)}
+body[data-page="experience"] .timeline-brand--wave{width:135px;height:49px;background:white}
+body[data-page="experience"] .timeline-brand--kaathpencil{width:74px;height:74px;background:#080421;border-color:#100b3a}
+body[data-page="experience"] .timeline-brand--kaathpencil img{width:100%;height:100%}
+body[data-page="experience"] .timeline-company{display:flex;align-items:start;flex-direction:column;gap:5px;min-width:0;font:600 clamp(13px,1.38vw,18px)/1.35 var(--sans);letter-spacing:-.025em;color:#204c31}
+body[data-page="experience"] .timeline-company a{color:#204c31;text-decoration:none;border-bottom:1px solid #70a178;display:inline;transition:color .2s}
+body[data-page="experience"] .timeline-company a:hover,body[data-page="experience"] .timeline-company a:focus-visible{color:#397b4a}
+body[data-page="experience"] .timeline-company-divider{color:#86a28b;font:11px var(--mono);padding:0}
+body[data-page="experience"] .timeline-item h3{font-size:clamp(22px,2.15vw,30px);font-weight:600;letter-spacing:-.055em;line-height:1.17;margin:1px 0 11px;color:#071f11}
+body[data-page="experience"] .timeline-description{font-size:13px;line-height:1.73;color:#536c59;margin:0 0 14px;max-width:650px}
+body[data-page="experience"] .timeline-period{display:block;max-width:100%;margin:0 0 13px;padding:0;background:transparent;border:0;font:10px/1.65 var(--mono);letter-spacing:0;color:#427d51}
+body[data-page="experience"] .timeline-card-bottom{display:flex;gap:11px;justify-content:space-between;align-items:end;flex-wrap:wrap;margin-top:auto;padding-top:13px;border-top:1px solid #d6e3d2}
+body[data-page="experience"] .timeline-tags{display:flex;flex-wrap:wrap;gap:5px}
+body[data-page="experience"] .timeline-tags span{font:9px/1.5 var(--mono);letter-spacing:.025em;color:#53795b;border:1px solid #c8d8c7;padding:6px 8px;background:#edf4e9}
+body[data-page="experience"] .timeline-now{display:inline-flex;align-items:center;white-space:nowrap;margin:0;padding:7px 9px;background:#d0eeab;color:#214729;font:700 9px/1.4 var(--mono);letter-spacing:.03em}
+body[data-page="experience"] .timeline-now.is-secondary{background:#e8eee3;color:#56745e;border:1px solid #cedacb}
+body[data-page="experience"] .page-marquee-item img{background:#f6faf2;border-radius:5px;padding:3px;width:52px;height:38px;object-fit:contain}
+body[data-page="experience"] .page-marquee-item img[src*="intelis"]{width:88px;height:40px}
+body[data-page="experience"] .page-marquee-item img[src*="eptisa"]{width:75px;height:35px;padding:0}
+body[data-page="experience"] .page-marquee-item img[src*="wave"]{width:94px;height:33px}
+body[data-page="experience"] .page-marquee-item img[src*="tib"]{width:55px;height:36px;object-fit:cover;object-position:center}
+@keyframes experience-card-in{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:900px){body[data-page="experience"] .journey-intro{grid-template-columns:1fr 1fr;gap:20px}body[data-page="experience"] .timeline{grid-template-columns:1fr 1fr;gap:12px}body[data-page="experience"] .timeline-item{padding:23px 18px;min-height:390px}body[data-page="experience"] .timeline-identity{gap:10px;flex-wrap:wrap}body[data-page="experience"] .timeline-company{font-size:13px}}
+@media(max-width:700px){body[data-page="experience"] .journey-layout{margin-top:25px}body[data-page="experience"] .journey-intro{grid-template-columns:1fr;padding-bottom:26px}body[data-page="experience"] .journey-intro h3{font-size:49px;line-height:1.05}body[data-page="experience"] .journey-quote{justify-self:start;font-size:19px;max-width:330px;margin-top:4px}body[data-page="experience"] .timeline{grid-template-columns:1fr;gap:13px}body[data-page="experience"] .timeline-item{min-height:335px;padding:23px 21px}body[data-page="experience"] .timeline-identity{flex-wrap:nowrap;gap:14px}body[data-page="experience"] .timeline-company{font-size:15px}body[data-page="experience"] .timeline-item h3{font-size:25px}body[data-page="experience"] .timeline-brand--intelis{width:110px;height:57px}body[data-page="experience"] .timeline-brand--wave{width:118px;height:44px}body[data-page="experience"] .timeline-brand--eptisa{width:105px;height:46px}}
+@media(max-width:380px){body[data-page="experience"] .timeline-item{padding:20px 17px}body[data-page="experience"] .timeline-identity{gap:10px}body[data-page="experience"] .timeline-company{font-size:13px}body[data-page="experience"] .timeline-brand--wave{width:95px;height:38px}body[data-page="experience"] .timeline-brand--intelis{width:92px;height:50px}}
+@media(prefers-reduced-motion:reduce){body[data-page="experience"] .timeline-item{animation:none;transition:none}body[data-page="experience"] .timeline-item:hover,body[data-page="experience"] .timeline-item:focus-within{transform:none}}

@@ -32,44 +32,53 @@ const publications = [
 
 const timeline = [
   {
-    date:'SEP 2026 — PRESENT',title:'Deputy Project Manager',mark:'IS',
+    date:'SEP 2026 — PRESENT',title:'Deputy Project Manager',logo:'assets/brands/intelis.jpeg',logoAlt:'Intelis Solution Ltd. logo',brand:'intelis',
     companies:[{name:'Intelis Solution Ltd.',url:'https://intelissolution.com/'}],
-    summary:'Coordinate multidisciplinary consulting and research work, expert contributions, client communication, technical reports and project deliverables.',
-    status:'CURRENT · FULL-TIME',current:true
+    summary:'Coordinate project teams, consultants and client communication; track workplans, technical reports, deliverables and day-to-day project progress.',
+    focus:['Project delivery','Team coordination'],status:'CURRENT · FULL-TIME',current:true
   },
   {
-    date:'JAN 2026 — PRESENT',title:'Executive — Carbon Credit',logo:'assets/brands/bnf.png',logoAlt:'B&F Group logo',
-    companies:[
-      {name:'NetZero Carbon Ltd. (NZC)',url:'https://netzerocarbon.com.bd/'},
-      {name:'B&F Group',url:'https://bnf.com.bd/',label:'associated company'}
-    ],
-    summary:'Support carbon-credit and circular-economy initiatives, technical documentation and waste-to-resource project planning, including the Dhaka Resource Circulation Industrial Park.',
-    note:'FULL-TIME: 01 JAN – 19 OCT 2026  ·  PART-TIME: OCT 2026 – PRESENT',status:'CONTINUING · PART-TIME'
+    date:'JAN 2026 — PRESENT',title:'Executive — Carbon Credit',logo:'assets/brands/netzero.png',logoAlt:'NetZero circular-economy mark',brand:'netzero',
+    companies:[{name:'NetZero Carbon Ltd. (NZC)',url:'https://netzerocarbon.com.bd/'}],
+    summary:'Support climate and carbon-credit project development, emissions-related research, environmental documentation and waste-to-resource concepts.',
+    note:'Continuing part-time since 20 October 2026 · Associated with B&F Group',
+    focus:['Climate & environment','Carbon credits'],status:'CURRENT · PART-TIME',current:true
   },
   {
-    date:'JAN — AUG 2025',title:'GIS Expert & Trainer',logo:'assets/brands/eptisa.png',logoAlt:'Eptisa logo',
+    date:'JAN — 19 OCT 2026',title:'Executive — Administration & Operations',logo:'assets/brands/bnf.png',logoAlt:'B&F Group logo',brand:'bnf',
+    companies:[{name:'B&F Group',url:'https://bnf.com.bd/'}],
+    summary:'Managed office correspondence, meeting arrangements, records and documentation; assisted administrative workflows, internal coordination and project operations.',
+    focus:['Administration','Operations'],status:'COMPLETED · FULL-TIME'
+  },
+  {
+    date:'JAN — AUG 2025',title:'GIS Expert & Trainer',logo:'assets/brands/eptisa.png',logoAlt:'Eptisa logo',brand:'eptisa',
     companies:[{name:'Eptisa Servicios de Ingeniería S.L.',url:'https://www.eptisa.com/'}],
-    summary:'Prepared GIS-based road maps and technical-report inputs; developed training materials and facilitated local disaster-preparedness sessions under LGCRRP.'
+    summary:'Produced GIS road maps and technical-report inputs; adapted training materials and facilitated community preparedness sessions under LGCRRP.',
+    focus:['GIS mapping','Local preparedness']
   },
   {
-    date:'NOV 2023 — APR 2024',title:'Programme Intern',mark:'TIB',
+    date:'NOV 2023 — APR 2024',title:'Programme Intern',logo:'assets/brands/tib.png',logoAlt:'Transparency International Bangladesh logo',brand:'tib',
     companies:[{name:'Transparency International Bangladesh',url:'https://www.ti-bangladesh.org/en'}],
-    summary:'Supported PACTA civic-engagement activities, field coordination, citizen participation and public-service web-portal assessments in Rajshahi.'
+    summary:'Assisted PACTA field activities, civic-engagement coordination, community participation and assessment of digital public services in Rajshahi.',
+    focus:['Civic engagement','Field coordination']
   },
   {
-    date:'APR — JUL & NOV — DEC 2022',title:'Master Trainer & Facilitator',mark:'WF',
+    date:'APR — JUL & NOV — DEC 2022',title:'Master Trainer & Facilitator',logo:'assets/brands/wave.png',logoAlt:'WAVE Foundation logo',brand:'wave',
     companies:[{name:'WAVE Foundation',url:'https://wavefoundationbd.org/'}],
-    summary:'Trained survey volunteers, checked data quality and field schedules, consolidated survey records and facilitated citizen-led assessment workshops.'
+    summary:'Trained survey volunteers, reviewed data quality and schedules, compiled records and led citizen-led assessment workshops.',
+    focus:['Training','Survey quality']
   },
   {
-    date:'2019 — 2024',title:'Youth Civic Engagement Volunteer',mark:'TIB',
+    date:'2019 — 2024',title:'Youth Civic Engagement Volunteer',logo:'assets/brands/tib.png',logoAlt:'Transparency International Bangladesh logo',brand:'tib',
     companies:[{name:'Transparency International Bangladesh',url:'https://www.ti-bangladesh.org/en'}],
-    summary:'Contributed to youth-led transparency campaigns, anti-corruption awareness, community outreach and public-service monitoring.'
+    summary:'Supported youth-led anti-corruption awareness, transparency campaigns, community outreach and public-service monitoring.',
+    focus:['Youth leadership','Community outreach']
   },
   {
-    date:'2018 — 2023',title:'ICT & Science Instructor',mark:'EDU',
+    date:'2018 — 2023',title:'ICT & Science Instructor',logo:'assets/brands/kaathpencil.png',logoAlt:'KaathPencil educational logo',brand:'kaathpencil',
     companies:[{name:'KaathPencil Online Education Centre'},{name:'Advance Education Centre'}],
-    summary:'Taught ICT and science subjects, prepared lessons and supported student learning through interactive instruction.'
+    summary:'Delivered ICT and science lessons, prepared study materials and guided students through interactive classroom and online learning.',
+    focus:['ICT & science','Teaching']
   }
 ];
 
@@ -114,12 +123,13 @@ const pageMarquees={
   contact:['LET’S COLLABORATE','CITIES & CLIMATE','RESEARCH PARTNERSHIPS','GIS & PLANNING','IDEAS INTO ACTION']
 };
 const experienceMarquee=[
-  {name:'INTELIS SOLUTION',url:'https://intelissolution.com/',mark:'IS'},
+  {name:'INTELIS SOLUTION',url:'https://intelissolution.com/',logo:'assets/brands/intelis.jpeg'},
   {name:'B&F GROUP',url:'https://bnf.com.bd/',logo:'assets/brands/bnf.png'},
-  {name:'NETZERO CARBON',url:'https://netzerocarbon.com.bd/',mark:'NZC'},
+  {name:'NETZERO CARBON',url:'https://netzerocarbon.com.bd/',logo:'assets/brands/netzero.png'},
   {name:'EPTISA',url:'https://www.eptisa.com/',logo:'assets/brands/eptisa.png'},
-  {name:'TRANSPARENCY INTERNATIONAL BANGLADESH',url:'https://www.ti-bangladesh.org/en',mark:'TIB'},
-  {name:'WAVE FOUNDATION',url:'https://wavefoundationbd.org/',mark:'WF'}
+  {name:'TRANSPARENCY INTERNATIONAL BANGLADESH',url:'https://www.ti-bangladesh.org/en',logo:'assets/brands/tib.png'},
+  {name:'WAVE FOUNDATION',url:'https://wavefoundationbd.org/',logo:'assets/brands/wave.png'},
+  {name:'KAATHPENCIL EDUCATION',logo:'assets/brands/kaathpencil.png'}
 ];
 const pageId=document.body.dataset.page;
 const subpageHero=$('.subpage-hero');
@@ -203,11 +213,19 @@ function renderPublications(type='all'){
 if($('#publications-grid'))renderPublications();
 $('#publication-filters')?.addEventListener('click',e=>{const button=e.target.closest('button[data-type]');if(!button)return;$$('#publication-filters button').forEach(b=>b.classList.remove('is-active'));button.classList.add('is-active');renderPublications(button.dataset.type);});
 
-if($('#timeline'))$('#timeline').innerHTML=timeline.map(item=>{
-  const logo=item.logo?`<img src="${item.logo}" alt="${item.logoAlt||''}" loading="lazy">`:`<span>${item.mark}</span>`;
-  const companies=item.companies.map(company=>company.url?`<a href="${company.url}" target="_blank" rel="noopener noreferrer">${company.name}<span aria-hidden="true"> ↗</span></a>${company.label?`<small>${company.label}</small>`:''}`:`<span>${company.name}</span>`).join('<span class="timeline-company-divider">/</span>');
-  return `<article class="timeline-item${item.current?' is-current':''}"><div class="timeline-time">${item.date}</div><div class="timeline-main"><div class="timeline-brand${item.logo?' has-image':''}${item.logo?.includes('bnf')?' is-dark':''}" aria-hidden="true">${logo}</div><div class="timeline-copy"><h3>${item.title}</h3><div class="timeline-company">${companies}</div><p>${item.summary}</p>${item.note?`<p class="timeline-period">${item.note}</p>`:''}${item.status?`<span class="timeline-now${item.current?'':' is-secondary'}">${item.status}</span>`:''}</div></div></article>`;
-}).join('');
+if($('#timeline')){
+  const introLabel=$('.journey-number');
+  if(introLabel)introLabel.textContent='SELECTED ROLES / THE JOURNEY';
+  $('#timeline').innerHTML=timeline.map((item,index)=>{
+    const logo=item.logo?`<img src="${item.logo}" alt="${item.logoAlt||''}" loading="lazy">`:`<span>${item.mark}</span>`;
+    const primaryUrl=item.companies.find(company=>company.url)?.url;
+    const brandClass=`timeline-brand timeline-brand--${item.brand||'default'}`;
+    const brand=primaryUrl?`<a class="${brandClass}" href="${primaryUrl}" target="_blank" rel="noopener noreferrer" aria-label="Visit ${item.companies[0].name}">${logo}</a>`:`<div class="${brandClass}">${logo}</div>`;
+    const companies=item.companies.map(company=>company.url?`<a href="${company.url}" target="_blank" rel="noopener noreferrer">${company.name}<span aria-hidden="true"> ↗</span></a>`:`<span>${company.name}</span>`).join('<span class="timeline-company-divider">&</span>');
+    const focus=(item.focus||[]).map(tag=>`<span>${tag}</span>`).join('');
+    return `<article class="timeline-item${item.current?' is-current':''}" style="--card-index:${index}"><div class="timeline-card-top"><span class="timeline-card-index">${String(index+1).padStart(2,'0')} / EXPERIENCE</span><span class="timeline-time">${item.date}</span></div><div class="timeline-identity">${brand}<div class="timeline-company">${companies}</div></div><h3>${item.title}</h3><p class="timeline-description">${item.summary}</p>${item.note?`<p class="timeline-period">${item.note}</p>`:''}<div class="timeline-card-bottom"><div class="timeline-tags">${focus}</div>${item.status?`<span class="timeline-now${item.current?'':' is-secondary'}">${item.status}</span>`:''}</div></article>`;
+  }).join('');
+}
 
 function renderGallery(filter='all'){
   const chosen=archive.map((item,i)=>({...item,index:i})).filter(item=>filter==='all'||item.group===filter);
