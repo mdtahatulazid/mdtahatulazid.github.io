@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="intro.css" />
   <script src="gallery-manifest.js" defer></script><script src="app.js" defer></script>
 </head>
 <body id="top" data-page="index"><div class="noise" aria-hidden="true"></div>  <div id="intro" class="screen intro-screen" role="dialog" aria-modal="true" aria-label="Portfolio opening">
@@ -20,6 +21,12 @@
       <h1 class="intro-name">TAHATUL <em>AZID.</em></h1>
       <p class="intro-caption">Cities. Climate. Community.</p>
       <div class="intro-progress"><span></span></div>
+      <div id="intro-ready-panel" class="intro-ready-panel" aria-hidden="true">
+        <div class="intro-portrait"><img src="assets/tahatul.jpg" alt="Md. Tahatul Azid" /></div>
+        <p class="intro-role">PLANNING <span>·</span> GIS <span>·</span> CLIMATE RESILIENCE</p>
+        <button id="enter-portfolio" class="intro-enter-button" type="button" disabled tabindex="-1"><span class="intro-enter-play" aria-hidden="true">▶</span> ENTER PORTFOLIO <span class="intro-enter-arrow" aria-hidden="true">↗</span></button>
+        <p class="intro-ready-caption">YOUR FIELDNOTES AWAIT</p>
+      </div>
     </div>
     <button id="skip-intro" class="outline-button intro-skip" type="button">SKIP INTRO <span aria-hidden="true">↗</span></button>
     <p class="intro-bottom">A portfolio in chapters · Best experienced with curiosity</p>

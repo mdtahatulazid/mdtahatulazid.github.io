@@ -55,10 +55,21 @@ let lastFocused = null;
 const intro = $('#intro');
 const chooser = $('#chooser');
 const site = $('#site');
+const introReadyPanel = $('#intro-ready-panel');
+const introEnterButton = $('#enter-portfolio');
 
-const rememberIntro = () => {try{sessionStorage.setItem('tahatul-intro-seen','1');}catch{}};
-const hasSeenIntro = () => {try{return sessionStorage.getItem('tahatul-intro-seen')==='1';}catch{return false;}};
-function showChooser(){if(!intro||!chooser)return;rememberIntro();clearTimeout(introTimer);intro.classList.add('is-hidden');chooser.classList.remove('is-hidden');document.body.classList.add('locked');}
+function revealIntroReady(){
+  if(!intro)return;
+  intro.classList.add('is-ready');
+  introReadyPanel?.setAttribute('aria-hidden','false');
+  if(introEnterButton){introEnterButton.disabled=false;introEnterButton.removeAttribute('tabindex');}
+}
+function resetIntroReady(){
+  intro?.classList.remove('is-ready');
+  introReadyPanel?.setAttribute('aria-hidden','true');
+  if(introEnterButton){introEnterButton.disabled=true;introEnterButton.tabIndex=-1;}
+}
+function showChooser(){if(!intro||!chooser)return;clearTimeout(introTimer);intro.classList.add('is-hidden');chooser.classList.remove('is-hidden');document.body.classList.add('locked');}
 function startExperience(mode){
   if(!intro||!chooser)return;
   chooser.classList.add('is-hidden');intro.classList.add('is-hidden');site.classList.remove('is-inert');document.body.classList.remove('locked');
@@ -66,18 +77,23 @@ function startExperience(mode){
   if(destinations[mode]){window.location.href=destinations[mode];return;}
   window.scrollTo({top:0,behavior:'instant'});
 }
-function replay(){if(!intro||!chooser)return;site.classList.add('is-inert');chooser.classList.add('is-hidden');intro.classList.remove('is-hidden');document.body.classList.add('locked');window.scrollTo({top:0,behavior:'instant'});introTimer=setTimeout(showChooser,4200);}
+function enterPortfolio(){clearTimeout(introTimer);startExperience('overview');}
+function replay(){
+  if(!intro||!chooser)return;
+  clearTimeout(introTimer);resetIntroReady();
+  site.classList.add('is-inert');chooser.classList.add('is-hidden');intro.classList.remove('is-hidden');
+  document.body.classList.add('locked');window.scrollTo({top:0,behavior:'instant'});
+  introTimer=setTimeout(revealIntroReady,window.matchMedia('(prefers-reduced-motion: reduce)').matches?50:4200);
+}
 if(intro && chooser){
-  $('#skip-intro')?.addEventListener('click',showChooser);
+  $('#skip-intro')?.addEventListener('click',enterPortfolio);
+  introEnterButton?.addEventListener('click',enterPortfolio);
   $$('.profile').forEach(button=>button.addEventListener('click',()=>startExperience(button.dataset.profile)));
   $('#switch-profile')?.addEventListener('click',showChooser);
   $('#watch-again')?.addEventListener('click',replay);
-  if(window.location.hash==='#profiles')showChooser();
-  else if(hasSeenIntro()){
-    intro.classList.add('is-hidden');chooser.classList.add('is-hidden');site.classList.remove('is-inert');document.body.classList.remove('locked');
-  } else {
-    introTimer=setTimeout(showChooser,4200);document.body.classList.add('locked');
-  }
+  if(window.location.hash==='#profiles')window.history.replaceState(null,'',window.location.pathname+window.location.search);
+  introTimer=setTimeout(revealIntroReady,window.matchMedia('(prefers-reduced-motion: reduce)').matches?50:4200);
+  document.body.classList.add('locked');
 }
 
 function renderProjects(filter='all'){
@@ -134,5 +150,4 @@ const menuToggle=$('#menu-toggle');
 menuToggle.addEventListener('click',()=>{const opened=$('#mobile-nav').classList.toggle('is-hidden')===false;menuToggle.setAttribute('aria-expanded',String(opened));});
 $$('#mobile-nav a').forEach(a=>a.addEventListener('click',()=>{$('#mobile-nav').classList.add('is-hidden');menuToggle.setAttribute('aria-expanded','false');}));
 
-/* Ensure the opening screen can be skipped instantly by keyboard. */
-intro?.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target===intro)showChooser();});
+/* The opening sequence never advances automatically; entry is a deliberate action. */
