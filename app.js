@@ -132,7 +132,10 @@ const experienceMarquee=[
   {name:'KAATHPENCIL EDUCATION',logo:'assets/brands/kaathpencil.png'}
 ];
 const pageId=document.body.dataset.page;
-const subpageHero=$('.subpage-hero');
+// Arriving from any section counts as an entered portfolio session: navigating
+// back to Home should never unexpectedly replay the opening animation.
+if(pageId!=='index')try{sessionStorage.setItem('tahatul-fieldnotes-intro-seen','1');}catch(error){}
+const subpageHero=$('.subpage-hero') || (pageId==='experience' ? $('.xp-hero') : null);
 if(subpageHero){
   const items=pageId==='experience'?experienceMarquee:(pageMarquees[pageId]||[]).map(name=>({name}));
   if(items.length){
@@ -174,6 +177,7 @@ function resetIntroReady(){
 function showChooser(){if(!intro||!chooser)return;clearTimeout(introTimer);intro.classList.add('is-hidden');chooser.classList.remove('is-hidden');document.body.classList.add('locked');}
 function startExperience(mode){
   if(!intro||!chooser)return;
+  try{sessionStorage.setItem('tahatul-fieldnotes-intro-seen','1');}catch(error){}
   chooser.classList.add('is-hidden');intro.classList.add('is-hidden');site.classList.remove('is-inert');document.body.classList.remove('locked');
   const destinations={research:'research.html',partner:'fieldwork.html',explorer:'gallery.html'};
   if(destinations[mode]){window.location.href=destinations[mode];return;}
@@ -193,9 +197,18 @@ if(intro && chooser){
   $$('.profile').forEach(button=>button.addEventListener('click',()=>startExperience(button.dataset.profile)));
   $('#switch-profile')?.addEventListener('click',showChooser);
   $('#watch-again')?.addEventListener('click',replay);
-  if(window.location.hash==='#profiles')window.history.replaceState(null,'',window.location.pathname+window.location.search);
-  introTimer=setTimeout(revealIntroReady,window.matchMedia('(prefers-reduced-motion: reduce)').matches?50:4200);
-  document.body.classList.add('locked');
+  const requestedProfiles=window.location.hash==='#profiles';
+  if(requestedProfiles)window.history.replaceState(null,'',window.location.pathname+window.location.search);
+  let previouslyEntered=false;
+  try{previouslyEntered=sessionStorage.getItem('tahatul-fieldnotes-intro-seen')==='1';}catch(error){}
+  if(requestedProfiles){
+    intro.classList.add('is-hidden');chooser.classList.remove('is-hidden');site.classList.add('is-inert');document.body.classList.add('locked');
+  }else if(previouslyEntered){
+    intro.classList.add('is-hidden');chooser.classList.add('is-hidden');site.classList.remove('is-inert');document.body.classList.remove('locked');
+  }else{
+    introTimer=setTimeout(revealIntroReady,window.matchMedia('(prefers-reduced-motion: reduce)').matches?50:4200);
+    document.body.classList.add('locked');
+  }
 }
 
 function renderProjects(filter='all'){

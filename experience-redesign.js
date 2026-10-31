@@ -1,11 +1,12 @@
-/* EXPERIENCE REDESIGN — factual, image-by-image professional stories.
-   Photos: user-supplied B&F / NZC batch, or existing local portfolio assets.
-   No unredacted employment agreements, contact cards or meeting notices are linked. */
+/* EXPERIENCE REDESIGN — user-supplied visual archive and privacy-safe evidence.
+   All published contract references are permanently masked JPEG excerpts;
+   private, complete agreements are never bundled with the public website. */
 (() => {
   'use strict';
   const photo = (file, title, body, tag = 'FIELD EVIDENCE') => ({image: file ? (file.startsWith('assets/') ? file : 'assets/experience/' + file + '.jpg') : '',title,body,tag});
   const legacy = (file, title, body, tag = 'PORTFOLIO ARCHIVE') => photo('assets/claude/' + file + '.jpg', title, body, tag);
   const note = (title, body, tag = 'ROLE & CONTRIBUTION') => photo('', title, body, tag);
+  const contract = (file, title, body) => ({...photo(file, title, body, 'PUBLIC CONTRACT EXCERPT'),document:'assets/experience/'+file+'.jpg'});
   const entries = [
     {
       id:'intelis',category:'professional',org:'Intelis Solution Ltd.',position:'Deputy Project Manager',
@@ -15,8 +16,9 @@
       detail:'My work spans project coordination, workplan tracking, deliverable review and bridging technical teams with clients and partners.',
       skills:['Project management','Technical coordination','Reporting'],
       stories:[
-        note('Keeping complex assignments moving','As Deputy Project Manager, I support the day-to-day delivery of consultancy assignments: coordinating teams, tracking schedules and technical outputs, consolidating information and communicating with project stakeholders.'),
-        note('From task lists to actionable decisions','I work across project meetings, document reviews, expert coordination and follow-up so that technical recommendations become clear deliverables. Individual assignments remain subject to their own confidentiality and client requirements.')
+        contract('contract-intelis-redacted','My Deputy Project Manager appointment','A public excerpt of my Intelis employment agreement. Financial details, service duration, confidential clauses and personal contacts have been permanently removed from this public image.'),
+        photo('intelis-jeremy-call','Coordinating expert input with Jeremy J. Davis','A documented online working discussion with international adviser Jeremy J. Davis connected to consultant coordination and technical assignment planning. This photograph records the meeting, not the result of an engagement.','INTERNATIONAL EXPERT COORDINATION'),
+        note('Keeping complex assignments moving','As Deputy Project Manager, I support day-to-day consultancy delivery: coordinating teams, tracking technical outputs, consolidating information and communicating with project stakeholders.')
       ]
     },
     {
@@ -27,6 +29,7 @@
       detail:'This work includes industrial exposure, Matuail waste-characterization exercises, visiting Korean technical teams and stakeholder engagement around the proposed Dhaka Resource Circulation Industrial Park (DRCIP).',
       skills:['Carbon markets','Waste characterization','Investment pitching'],
       stories:[
+        contract('contract-nzc-redacted','NetZero Carbon appointment evidence','The NZC appointment agreement is represented by a redacted, selected public cover excerpt. Original private terms, compensation and employment duration are not distributed.'),
         photo('nzc-first-factory','My first factory visit with the NZC team','An early industrial site visit helped me observe the production environment, site operations and material-handling practices in person. The material shown is not identified in the available documentation.','INDUSTRIAL EXPOSURE'),
         photo('nzc-first-team','Understanding operations on the ground','I joined colleagues during my first NZC factory visit to understand the industrial context and practical questions behind project development.','INDUSTRIAL EXPOSURE'),
         photo('nzc-matuail-sort','First waste segregation at Matuail','Our field team sorted mixed municipal waste to begin identifying its visible composition and characteristics. The purpose was to build practical evidence for resource-circulation planning; no quantitative test result is asserted here.','WASTE CHARACTERIZATION'),
@@ -73,8 +76,13 @@
       detail:'I worked on the World Bank-supported Local Government COVID-19 Response and Recovery Project with the Eptisa–ADSL–DPDS joint venture, first as a GIS specialist and then also as a training facilitator.',
       skills:['GIS','Hazard planning','Training'],
       stories:[
+        contract('contract-eptisa-gis-redacted','GIS Expert — appointment evidence','A safe excerpt from my initial Eptisa appointment letter for GIS work on LGCRRP. Salary, appointment period and other confidential information are excluded.'),
+        photo('eptisa-gis-project-sign','The World Bank-supported LGCRRP project','A project sign documenting the Local Government COVID-19 Response and Recovery Project (LGCRRP), the institutional context for my GIS work.','PROJECT CONTEXT'),
+        photo('eptisa-gis-team','With colleagues at the LGCRRP project office','A team photograph at the project office during the GIS assignment, representing collaborative mapping and planning work.','GIS EXPERT'),
+        photo('eptisa-gis-data-archive','Organizing municipality-level GIS data','A workstation view of municipal project folders and geospatial documentation used in the GIS support work.','GIS DATA MANAGEMENT'),
         legacy('ep-team','GIS expertise in a multidisciplinary team','From January 2025, I prepared spatial layouts and mapping inputs, analysed geospatial data and supported technical reporting for municipal planning.','GIS EXPERT'),
         legacy('ep-sign','Supporting technical mapping and project documentation','The GIS role linked spatial analysis with reporting and practical guidance for the wider project team.','GIS EXPERT'),
+        contract('contract-eptisa-trainer-redacted','Senior Trainer — second appointment letter','A separate public excerpt documents my later training and facilitation responsibilities. The actual appointment duration, financial figures and personal contact details have been withheld.'),
         legacy('ep-m1','Moving into stakeholder facilitation','As Senior Trainer (Facilitator), I supported meetings with local governments and communities across southeastern Bangladesh.','SENIOR TRAINER'),
         legacy('ep-m2','Listening to local hazard concerns','Consultations in Paurashavas explored locally experienced hazards such as flooding, landslides, cyclones and lightning.','STAKEHOLDER CONSULTATION'),
         legacy('ep-m3','Turning discussions into preparedness inputs','I combined field consultations with municipal information to help prepare context-specific Local Preparedness Plans.','LOCAL PREPAREDNESS'),
@@ -97,12 +105,15 @@
         legacy('wv-4','Preparing volunteers for data collection','Training covered survey methods, questionnaire handling, ethical considerations and careful interactions with households.','MASTER TRAINER'),
         legacy('wv-5','Training the Rajshahi cohort','I subsequently delivered training to 22 volunteers in Rajshahi, helping them prepare for field surveys.','MASTER TRAINER'),
         legacy('wv-6','Mentoring the next field team','Interactive sessions built practical skills in community engagement and consistent recording of findings.','MASTER TRAINER'),
+        legacy('wv-7','Additional training programme moment','An additional archived image from WAVE Foundation field training and citizen-led assessment activities.','PHOTO ARCHIVE'),
         legacy('wv-f1','Monitoring surveys in the field','During May–June 2022 I monitored volunteer fieldwork, checked questionnaire quality and helped address practical challenges.','FIELD MONITORING'),
         legacy('wv-f2','Supporting data quality at the source','Field supervision helped teams maintain consistent processes while working across Rajshahi communities.','FIELD MONITORING'),
         legacy('wv-f3','On-the-spot guidance and feedback','My work included mentoring field volunteers and feeding observed issues back into project coordination.','FIELD MONITORING'),
+        legacy('wv-f4','Additional fieldwork documentation','A further archived photograph from the citizen-led assessment monitoring period.','PHOTO ARCHIVE'),
         legacy('wv-8','Facilitation under Education Out Loud','In November 2022 I joined facilitation training at Dnet in Dhaka to strengthen participatory education-monitoring methods.','FACILITATOR'),
         legacy('wv-9','Delivering citizen leadership sessions','I later facilitated rural training sessions about education quality and citizen participation, engaging more than 50 participants across activities.','FACILITATOR'),
         legacy('wv-10','Turning awareness into dialogue','The sessions encouraged participants to examine education challenges and understand opportunities for collective advocacy.','FACILITATOR'),
+        legacy('wv-11','Facilitation and community exchange','An additional WAVE Foundation activity photograph preserved from the original portfolio archive.','PHOTO ARCHIVE'),
         legacy('wv-12','Closing exchange in Rajshahi','At the October 2023 exchange meeting, project stakeholders reflected on lessons from the citizen-led assessment and training process.','EXCHANGE MEETING')
       ]
     },
@@ -181,6 +192,44 @@
     }
   ];
 
+  // Every additional original B&F / NZC photograph is retained in an extended
+  // archive after the editor's main visual narrative. Document/contact-card
+  // photographs are pixel-masked by the asset-preparation script.
+  const bnfArchive = [
+    ['055216','Conveyors and handling equipment at BioGreen','A further view of the biomass-processing line during the factory visit.'],
+    ['055220','Processing equipment during the BioGreen visit','The industrial tour continued through a different section of the facility.'],
+    ['055227','Material-handling activity at BioGreen','Another angle on biomass feedstock handling and production workflow.'],
+    ['055231','A closer look at the facility','Machinery and stored material observed during the site review.'],
+    ['055244','BioGreen storage and materials','Sacks and other material-handling arrangements visible at the plant.'],
+    ['055259','Factory systems and work areas','A further factory-floor view from the industrial visit.'],
+    ['060302','B&F professional card — contacts obscured','The original visiting-card image is retained as a permanently obscured archival view to protect contact details.'],
+    ['060308','B&F organization card — contacts obscured','A second company-card view; the image is intentionally obscured to avoid publishing telephone and other identifiers.'],
+    ['080051','Bangladesh Secretariat — meeting overview','An additional view of the government discussion on the proposed Matuail initiative.'],
+    ['080116','Bangladesh Secretariat — project discussion','Meeting participants reviewing the resource-circulation presentation.'],
+    ['080217','Government meeting notice — details obscured','The official meeting notice is retained as masked evidence; private phone numbers and other document details are not published.'],
+    ['081133','Arriving at Dhaka South City Corporation','Exterior photograph establishing the setting of the stakeholder meeting.'],
+    ['081241','Following the DSCC presentation','A team photograph at Nagar Bhaban after the project discussion.'],
+    ['081608','At the proposed Matuail project site','An additional image from the site-level stakeholder visit.'],
+    ['081735','Media and stakeholder activity at Matuail','A broader public gathering around project-site activities.'],
+    ['082329','Additional DSCC meeting angle','An alternate view documenting the stakeholder discussion.'],
+    ['082441','Factory inspection — another perspective','A second photograph of the operational site review with B&F colleagues.'],
+    ['082638','Progress discussion and presentation materials','An additional view of the DRCIP follow-up meeting at DSCC.'],
+    ['082649','Technical discussion at DSCC','A side angle of the project-review session.'],
+    ['082657','Following up with DSCC stakeholders','An additional official meeting and greeting photograph.'],
+    ['082845','Wider view of the DSCC progress meeting','Further documentation of the project-flow discussion and review.']
+  ];
+  const nzcArchive = [
+    ['090213','First Matuail waste-characterization exercise','An additional field angle from the initial on-site waste-sorting work.'],
+    ['090246','Korean delegation in Bangladesh','An additional photograph of the visiting Korean delegation and the local team.'],
+    ['090256','Accompanying Korean visitors at the site','Another frame from the delegation site visit.'],
+    ['090319','CarboBon collaboration discussion','A second photograph from the exploratory coordination meeting.'],
+    ['090345','IFC meeting — reviewing supporting material','An additional view of the investment discussion at the IFC Dhaka office.'],
+    ['090352','IFC meeting — presentation and questions','Another frame documenting the DRCIP investment pitch and project conversation.'],
+    ['090415','KORA delegation field visit','A second photograph of the Korean visiting team observing waste conditions at Matuail.']
+  ];
+  entries.find(item=>item.id==='bnf').stories.push(...bnfArchive.map(([id,title,body])=>photo('bnf-archive-'+id,title,body,'EXTENDED PHOTO ARCHIVE')));
+  entries.find(item=>item.id==='nzc').stories.push(...nzcArchive.map(([id,title,body])=>photo('nzc-archive-'+id,title,body,'EXTENDED PHOTO ARCHIVE')));
+
   const $ = selector => document.querySelector(selector);
   const $$ = selector => [...document.querySelectorAll(selector)];
   const esc = text => String(text == null ? '' : text).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -251,12 +300,15 @@
     const count=item.stories.length;
     const img=$('#xp-story-image');
     const art=$('#xp-story-art');
+    const frame=$('.xp-story-frame');
     if(moment.image) {
+      frame.style.setProperty('--xp-story-backdrop','url("'+moment.image+'")');
       img.src=moment.image;
       img.alt=moment.title+' — '+item.org;
       img.classList.remove('is-hidden');
       art.classList.add('is-hidden');
     } else {
+      frame.style.setProperty('--xp-story-backdrop','none');
       img.removeAttribute('src');
       img.classList.add('is-hidden');
       art.classList.remove('is-hidden');
@@ -266,6 +318,16 @@
     }
     $('#xp-story-title').textContent=moment.title;
     $('#xp-story-body').textContent=moment.body;
+    const documentLink=$('#xp-story-document');
+    if(moment.document){
+      documentLink.href=moment.document;
+      documentLink.download=moment.document.split('/').pop();
+      documentLink.textContent='DOWNLOAD REDACTED CONTRACT IMAGE ↓';
+      documentLink.classList.remove('is-hidden');
+    }else{
+      documentLink.removeAttribute('href');
+      documentLink.classList.add('is-hidden');
+    }
     $('#xp-story-track').textContent=moment.tag+' / '+String(currentMoment+1).padStart(2,'0');
     $('#xp-story-counter').textContent=String(currentMoment+1).padStart(2,'0')+' / '+String(count).padStart(2,'0');
     $('#xp-story-tags').innerHTML=item.skills.map(tag=>'<span>'+esc(tag)+'</span>').join('');
