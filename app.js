@@ -132,9 +132,6 @@ const experienceMarquee=[
   {name:'KAATHPENCIL EDUCATION',logo:'assets/brands/kaathpencil.png'}
 ];
 const pageId=document.body.dataset.page;
-// Arriving from any section counts as an entered portfolio session: navigating
-// back to Home should never unexpectedly replay the opening animation.
-if(pageId!=='index')try{sessionStorage.setItem('tahatul-fieldnotes-intro-seen','1');}catch(error){}
 const subpageHero=$('.subpage-hero') || (pageId==='experience' ? $('.xp-hero') : null);
 if(subpageHero){
   const items=pageId==='experience'?experienceMarquee:(pageMarquees[pageId]||[]).map(name=>({name}));
@@ -155,60 +152,37 @@ if(subpageHero){
     if(sectionEpisode&&/^EPISODE \d{2}/.test(sectionEpisode.textContent))sectionEpisode.textContent=sectionEpisode.textContent.replace(/^EPISODE \d{2}/,`EPISODE ${prefix}`);
   }
 }
-let introTimer;
 let lastFocused = null;
-const intro = $('#intro');
 const chooser = $('#chooser');
 const site = $('#site');
-const introReadyPanel = $('#intro-ready-panel');
-const introEnterButton = $('#enter-portfolio');
-
-function revealIntroReady(){
-  if(!intro)return;
-  intro.classList.add('is-ready');
-  introReadyPanel?.setAttribute('aria-hidden','false');
-  if(introEnterButton){introEnterButton.disabled=false;introEnterButton.removeAttribute('tabindex');}
+function showChooser(){
+  if(!chooser||!site)return;
+  lastFocused=document.activeElement;
+  site.classList.add('is-inert');
+  chooser.classList.remove('is-hidden');
+  document.body.classList.add('locked');
+  chooser.querySelector('.profile')?.focus();
 }
-function resetIntroReady(){
-  intro?.classList.remove('is-ready');
-  introReadyPanel?.setAttribute('aria-hidden','true');
-  if(introEnterButton){introEnterButton.disabled=true;introEnterButton.tabIndex=-1;}
+function closeChooser(){
+  if(!chooser||!site)return;
+  chooser.classList.add('is-hidden');
+  site.classList.remove('is-inert');
+  document.body.classList.remove('locked');
+  lastFocused?.focus();
 }
-function showChooser(){if(!intro||!chooser)return;clearTimeout(introTimer);intro.classList.add('is-hidden');chooser.classList.remove('is-hidden');document.body.classList.add('locked');}
 function startExperience(mode){
-  if(!intro||!chooser)return;
-  try{sessionStorage.setItem('tahatul-fieldnotes-intro-seen','1');}catch(error){}
-  chooser.classList.add('is-hidden');intro.classList.add('is-hidden');site.classList.remove('is-inert');document.body.classList.remove('locked');
+  if(!chooser||!site)return;
+  chooser.classList.add('is-hidden');site.classList.remove('is-inert');document.body.classList.remove('locked');
   const destinations={research:'research.html',partner:'fieldwork.html',explorer:'gallery.html'};
   if(destinations[mode]){window.location.href=destinations[mode];return;}
   window.scrollTo({top:0,behavior:'instant'});
 }
-function enterPortfolio(){clearTimeout(introTimer);startExperience('overview');}
-function replay(){
-  if(!intro||!chooser)return;
-  clearTimeout(introTimer);resetIntroReady();
-  site.classList.add('is-inert');chooser.classList.add('is-hidden');intro.classList.remove('is-hidden');
-  document.body.classList.add('locked');window.scrollTo({top:0,behavior:'instant'});
-  introTimer=setTimeout(revealIntroReady,window.matchMedia('(prefers-reduced-motion: reduce)').matches?50:4200);
-}
-if(intro && chooser){
-  $('#skip-intro')?.addEventListener('click',enterPortfolio);
-  introEnterButton?.addEventListener('click',enterPortfolio);
+if(chooser && site){
   $$('.profile').forEach(button=>button.addEventListener('click',()=>startExperience(button.dataset.profile)));
   $('#switch-profile')?.addEventListener('click',showChooser);
-  $('#watch-again')?.addEventListener('click',replay);
   const requestedProfiles=window.location.hash==='#profiles';
   if(requestedProfiles)window.history.replaceState(null,'',window.location.pathname+window.location.search);
-  let previouslyEntered=false;
-  try{previouslyEntered=sessionStorage.getItem('tahatul-fieldnotes-intro-seen')==='1';}catch(error){}
-  if(requestedProfiles){
-    intro.classList.add('is-hidden');chooser.classList.remove('is-hidden');site.classList.add('is-inert');document.body.classList.add('locked');
-  }else if(previouslyEntered){
-    intro.classList.add('is-hidden');chooser.classList.add('is-hidden');site.classList.remove('is-inert');document.body.classList.remove('locked');
-  }else{
-    introTimer=setTimeout(revealIntroReady,window.matchMedia('(prefers-reduced-motion: reduce)').matches?50:4200);
-    document.body.classList.add('locked');
-  }
+  if(requestedProfiles)showChooser();
 }
 
 function renderProjects(filter='all'){
@@ -271,10 +245,9 @@ $$('.imported-content .strip img').forEach(img=>{
   img.addEventListener('click',expand);
   img.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();expand();}});
 });
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(modal&&!modal.classList.contains('is-hidden'))closeModal();else if(lightbox&&!lightbox.classList.contains('is-hidden'))closeLightbox();else if(chooser&&!chooser.classList.contains('is-hidden')&&!site.classList.contains('is-inert')){chooser.classList.add('is-hidden');document.body.classList.remove('locked');}}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(modal&&!modal.classList.contains('is-hidden'))closeModal();else if(lightbox&&!lightbox.classList.contains('is-hidden'))closeLightbox();else if(chooser&&!chooser.classList.contains('is-hidden'))closeChooser();}});
 
 const menuToggle=$('#menu-toggle');
 menuToggle.addEventListener('click',()=>{const opened=$('#mobile-nav').classList.toggle('is-hidden')===false;menuToggle.setAttribute('aria-expanded',String(opened));});
 $$('#mobile-nav a').forEach(a=>a.addEventListener('click',()=>{$('#mobile-nav').classList.add('is-hidden');menuToggle.setAttribute('aria-expanded','false');}));
 
-/* The opening sequence never advances automatically; entry is a deliberate action. */
