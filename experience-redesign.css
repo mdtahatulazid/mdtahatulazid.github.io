@@ -18,8 +18,8 @@ body[data-page="experience"].locked{overflow:hidden}
 .xp-hero-visual{position:relative;height:500px}
 .xp-hero-photo{position:absolute;overflow:hidden;background:#2f543d}
 .xp-hero-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.88)}
-.xp-hero-photo-main img{object-position:center 28%}
-.xp-hero-photo-inset img{object-position:center 30%}
+.xp-hero-photo-main img{object-position:15% center}
+.xp-hero-photo-inset img{object-position:58% center}
 .xp-story-document{display:inline-flex;align-items:center;justify-content:center;margin:24px 0 5px;padding:13px 17px;border:1px solid #17452e;background:#d8edbc;color:#123d28;font:600 10px var(--mono);letter-spacing:.07em;text-decoration:none;transition:background .2s,transform .2s}
 .xp-story-document:hover,.xp-story-document:focus-visible{background:#c0e89a;transform:translateY(-2px)}
 .xp-story-document.is-hidden{display:none}
