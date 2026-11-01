@@ -169,3 +169,60 @@ body[data-page="experience"].locked{overflow:hidden}
   .xp-project-description{font-size:15px;line-height:1.75}
   .xp-project-photo-note{padding:15px 16px}
 }
+
+/* Refined gallery interaction: lightweight backdrop, fluid slide-and-fade
+   motion, floating circular controls and an animated section progress rail. */
+.xp-project-photo-frame{touch-action:pan-y;user-select:none;background:#092016}
+.xp-project-photo-frame::before{
+  inset:0;
+  background-image:radial-gradient(ellipse at 25% 20%,rgba(116,178,114,.20),transparent 52%),radial-gradient(ellipse at 85% 80%,rgba(185,225,132,.12),transparent 55%);
+  background-position:center;
+  filter:none;
+}
+.xp-project-image{backface-visibility:hidden;will-change:transform,opacity;transition:transform .43s cubic-bezier(.22,1,.36,1),opacity .38s ease}
+.xp-project-image-current{opacity:1;transform:translate3d(0,0,0) scale(1)}
+.xp-project-image-incoming{opacity:0;transform:translate3d(34px,0,0) scale(.985)}
+.xp-project-row.xp-going-back .xp-project-image-incoming{transform:translate3d(-34px,0,0) scale(.985)}
+.xp-project-row.xp-is-sliding .xp-project-image-current{opacity:0;transform:translate3d(-34px,0,0) scale(.985)}
+.xp-project-row.xp-going-back.xp-is-sliding .xp-project-image-current{transform:translate3d(34px,0,0) scale(.985)}
+.xp-project-row.xp-is-sliding .xp-project-image-incoming{opacity:1;transform:translate3d(0,0,0) scale(1)}
+.xp-project-row.xp-snap .xp-project-image{transition:none!important}
+.xp-project-overlay-arrow{
+  appearance:none;position:absolute;z-index:4;top:50%;transform:translateY(-50%);
+  display:grid;place-items:center;width:51px;height:51px;padding:0;
+  border-radius:50%;border:1px solid rgba(226,249,205,.45);
+  background:rgba(9,36,23,.68);color:#e0fbb2;
+  font:27px var(--sans);line-height:1;
+  backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+  box-shadow:0 8px 22px rgba(0,0,0,.17);cursor:pointer;
+  transition:background .22s ease,color .22s ease,border-color .22s ease,box-shadow .22s ease
+}
+.xp-project-overlay-arrow:hover:not(:disabled){background:#c6f37c;color:#133321;border-color:#c6f37c;box-shadow:0 9px 32px rgba(6,19,11,.34)}
+.xp-project-overlay-arrow:focus-visible{outline:3px solid #c6f37c;outline-offset:4px}
+.xp-project-overlay-arrow:disabled{opacity:0;pointer-events:none}
+.xp-project-overlay-arrow.xp-project-prev{left:17px}
+.xp-project-overlay-arrow.xp-project-next{right:17px}
+.xp-project-swipe-hint{position:absolute;z-index:3;bottom:18px;left:20px;font:9px var(--mono);letter-spacing:.13em;color:rgba(235,251,224,.80);background:rgba(9,32,21,.68);padding:9px 12px;pointer-events:none}
+.xp-project-slider-controls{display:grid;grid-template-columns:65px minmax(60px,.9fr) minmax(88px,1.3fr);align-items:center;gap:19px;min-height:66px;padding:11px 22px}
+.xp-project-counter{text-align:left;min-width:0;white-space:nowrap;font-size:12px;font-variant-numeric:tabular-nums}
+.xp-project-progress{height:3px;border-radius:4px;background:#385840;overflow:hidden}
+.xp-project-progress-fill{display:block;width:0;height:100%;border-radius:4px;background:#c6f37c;box-shadow:0 0 14px rgba(198,243,124,.40);transition:width .42s cubic-bezier(.22,1,.36,1)}
+.xp-project-dots{justify-content:flex-end;gap:9px;flex:none}
+.xp-project-dot{width:8px;height:8px;min-width:8px;border-color:#71927a;transition:background .24s ease,transform .24s ease,border-color .24s ease}
+.xp-project-dot.is-active{transform:scale(1.45)}
+.xp-project-photo-note.is-updating .xp-project-photo-title,
+.xp-project-photo-note.is-updating .xp-project-photo-detail{animation:xpPhotoNoteIn .32s cubic-bezier(.22,1,.36,1) both}
+@keyframes xpPhotoNoteIn{from{opacity:.3;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:760px){
+  .xp-project-overlay-arrow{width:42px;height:42px;font-size:23px}
+  .xp-project-overlay-arrow.xp-project-prev{left:12px}
+  .xp-project-overlay-arrow.xp-project-next{right:12px}
+  .xp-project-swipe-hint{font-size:8px;bottom:11px;left:12px;padding:7px 9px}
+  .xp-project-slider-controls{grid-template-columns:60px minmax(35px,1fr) minmax(70px,1.25fr);gap:11px;min-height:57px;padding:10px 15px}
+  .xp-project-dots{gap:7px}
+}
+@media(prefers-reduced-motion:reduce){
+  .xp-project-image,.xp-project-progress-fill,.xp-project-dot,.xp-project-overlay-arrow{transition:none!important}
+  .xp-project-photo-note.is-updating .xp-project-photo-title,
+  .xp-project-photo-note.is-updating .xp-project-photo-detail{animation:none!important}
+}

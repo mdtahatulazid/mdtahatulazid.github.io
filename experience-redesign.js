@@ -328,6 +328,11 @@
   let currentEntry=null;
   let currentProjects=[];
   let galleryIndices=[];
+  let galleryTimers=[];
+  let galleryTokens=[];
+  let galleryObserver=null;
+  let swipeStart=null;
+  const photoPreloads=new Map();
   let previousFocus=null;
 
   function card(item, index) {
@@ -377,6 +382,7 @@
     $('#xp-modal').classList.remove('is-hidden');
     document.body.classList.add('locked');
     $('.xp-modal-panel').scrollTop=0;
+    observeProjectGalleries();
     $('#xp-modal-close').focus({preventScroll:true});
   }
 
@@ -404,18 +410,24 @@
     if(!currentEntry)return;
     currentProjects=projectsFor(currentEntry);
     galleryIndices=currentProjects.map(()=>0);
+    galleryTokens=currentProjects.map(()=>0);
+    galleryTimers=currentProjects.map(()=>null);
     $('#xp-project-stack').innerHTML=currentProjects.map((group,groupIndex)=>{
       const number=String(groupIndex+1).padStart(2,'0');
       const total=String(currentProjects.length).padStart(2,'0');
       return '<section class="xp-project-row" data-xp-group="'+groupIndex+'" aria-labelledby="xp-project-heading-'+groupIndex+'">'
         +'<div class="xp-project-gallery"><div class="xp-project-photo-frame">'
-        +'<img class="xp-project-image" alt="" loading="lazy">'
+        +'<img class="xp-project-image xp-project-image-current" alt="" loading="lazy" decoding="async" draggable="false">'
+        +'<img class="xp-project-image xp-project-image-incoming is-hidden" alt="" decoding="async" draggable="false">'
         +'<div class="xp-project-placeholder is-hidden"><img src="'+esc(currentEntry.logo||'assets/tahatul.jpg')+'" alt=""><span>PROJECT DOCUMENTATION / '+number+'</span></div>'
-        +'<span class="xp-project-photo-stamp">FIELDNOTE / '+number+'</span></div>'
+        +'<span class="xp-project-photo-stamp">FIELDNOTE / '+number+'</span>'
+        +'<span class="xp-project-swipe-hint" aria-hidden="true">SWIPE TO EXPLORE ↔</span>'
+        +'<button type="button" class="xp-project-overlay-arrow xp-project-prev" data-xp-step="-1" aria-label="Previous image in '+esc(group.title)+'">←</button>'
+        +'<button type="button" class="xp-project-overlay-arrow xp-project-next" data-xp-step="1" aria-label="Next image in '+esc(group.title)+'">→</button>'
+        +'</div>'
         +'<div class="xp-project-slider-controls">'
-        +'<button type="button" class="xp-project-prev" data-xp-step="-1" aria-label="Previous image in '+esc(group.title)+'">←</button>'
         +'<span class="xp-project-counter" aria-live="polite"></span>'
-        +'<button type="button" class="xp-project-next" data-xp-step="1" aria-label="Next image in '+esc(group.title)+'">→</button>'
+        +'<div class="xp-project-progress" aria-hidden="true"><span class="xp-project-progress-fill"></span></div>'
         +'<div class="xp-project-dots" role="group" aria-label="Select image in '+esc(group.title)+'"></div>'
         +'</div></div>'
         +'<div class="xp-project-copy"><span class="xp-project-index">PROJECT / ACTIVITY '+number+' OF '+total+'</span>'
@@ -431,52 +443,146 @@
     currentProjects.forEach((_,index)=>renderProjectSlide(index));
   }
 
-  function renderProjectSlide(groupIndex) {
+  function preloadPhoto(url) {
+    if(!url||photoPreloads.has(url))return;
+    const image=new Image();
+    image.decoding='async';
+    image.src=url;
+    photoPreloads.set(url,image);
+  }
+
+  function preloadNearbyPhotos(groupIndex) {
+    const group=currentProjects[groupIndex];
+    if(!group||group.slides.length<2)return;
+    const count=group.slides.length;
+    const index=galleryIndices[groupIndex];
+    preloadPhoto(group.slides[(index+1)%count].image);
+    preloadPhoto(group.slides[(index-1+count)%count].image);
+  }
+
+  function observeProjectGalleries() {
+    galleryObserver?.disconnect();
+    if(!('IntersectionObserver' in window)){
+      currentProjects.forEach((_,index)=>preloadNearbyPhotos(index));
+      return;
+    }
+    galleryObserver=new IntersectionObserver(items=>{
+      for(const item of items){
+        if(item.isIntersecting){
+          preloadNearbyPhotos(Number(item.target.dataset.xpGroup));
+          galleryObserver?.unobserve(item.target);
+        }
+      }
+    },{root:$('.xp-modal-panel'),rootMargin:'300px'});
+    $$('.xp-project-row').forEach(row=>galleryObserver.observe(row));
+  }
+
+  function settleProjectTransition(groupIndex) {
+    if(galleryTimers[groupIndex]){
+      clearTimeout(galleryTimers[groupIndex]);
+      galleryTimers[groupIndex]=null;
+    }
+    const row=$('[data-xp-group="'+groupIndex+'"]');
+    if(!row)return;
+    const current=row.querySelector('.xp-project-image-current');
+    const incoming=row.querySelector('.xp-project-image-incoming');
+    if(incoming.classList.contains('is-hidden')&&!row.classList.contains('xp-is-sliding'))return;
+    row.classList.add('xp-snap');
+    if(!incoming.classList.contains('is-hidden')&&incoming.getAttribute('src')){
+      current.src=incoming.src;
+      current.alt=incoming.alt;
+      current.classList.remove('is-hidden');
+    }
+    incoming.classList.add('is-hidden');
+    incoming.removeAttribute('src');
+    row.classList.remove('xp-is-sliding','xp-going-forward','xp-going-back');
+    // Commit instantly so rapid clicks never stack ghost images or animations.
+    void row.offsetWidth;
+    row.classList.remove('xp-snap');
+  }
+
+  function renderProjectSlide(groupIndex,direction=0) {
     const group=currentProjects[groupIndex];
     if(!group)return;
     const moment=group.slides[galleryIndices[groupIndex]];
     const row=$('[data-xp-group="'+groupIndex+'"]');
     if(!row)return;
-    const img=row.querySelector('.xp-project-image');
+    settleProjectTransition(groupIndex);
+    const token=++galleryTokens[groupIndex];
+    const img=row.querySelector('.xp-project-image-current');
+    const incoming=row.querySelector('.xp-project-image-incoming');
     const art=row.querySelector('.xp-project-placeholder');
-    const frame=row.querySelector('.xp-project-photo-frame');
-    if(moment.image) {
+    const isReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canAnimate=direction!==0&&!isReducedMotion&&!!moment.image&&!!img.getAttribute('src')&&!img.classList.contains('is-hidden');
+    if(canAnimate) {
+      incoming.src=moment.image;
+      incoming.alt=moment.title+' — '+currentEntry.org;
+      incoming.classList.remove('is-hidden');
+      row.classList.add(direction<0?'xp-going-back':'xp-going-forward');
+      requestAnimationFrame(()=>{
+        if(galleryTokens[groupIndex]===token){
+          row.classList.add('xp-is-sliding');
+        }
+      });
+      galleryTimers[groupIndex]=setTimeout(()=>{
+        if(galleryTokens[groupIndex]===token)settleProjectTransition(groupIndex);
+      },490);
+    } else if(moment.image) {
       img.src=moment.image;
       img.alt=moment.title+' — '+currentEntry.org;
       img.classList.remove('is-hidden');
-      art.classList.add('is-hidden');
-      // Soft photo wash fills unused space while the photo itself stays uncropped.
-      frame.style.setProperty('--xp-project-backdrop','url("'+moment.image+'")');
     } else {
       img.removeAttribute('src');
       img.classList.add('is-hidden');
-      art.classList.remove('is-hidden');
-      frame.style.setProperty('--xp-project-backdrop','none');
     }
+    art.classList.toggle('is-hidden',!!moment.image);
     row.querySelector('.xp-project-photo-title').textContent=moment.title;
     row.querySelector('.xp-project-photo-detail').textContent=moment.body;
+    if(direction!==0&&!isReducedMotion){
+      const note=row.querySelector('.xp-project-photo-note');
+      note.classList.remove('is-updating');
+      void note.offsetWidth;
+      note.classList.add('is-updating');
+    }
     const count=group.slides.length;
     row.querySelector('.xp-project-counter').textContent=String(galleryIndices[groupIndex]+1).padStart(2,'0')+' / '+String(count).padStart(2,'0');
+    row.querySelector('.xp-project-progress-fill').style.width=((galleryIndices[groupIndex]+1)/count*100)+'%';
     row.querySelector('.xp-project-prev').disabled=count===1;
     row.querySelector('.xp-project-next').disabled=count===1;
-    row.querySelector('.xp-project-dots').innerHTML=group.slides.map((slide,index)=>
-      '<button type="button" class="xp-project-dot'+(index===galleryIndices[groupIndex]?' is-active':'')+'" data-xp-dot="'+index+'" aria-label="Show image '+(index+1)+': '+esc(slide.title)+'" aria-current="'+(index===galleryIndices[groupIndex]?'true':'false')+'"></button>'
-    ).join('');
+    const dots=row.querySelector('.xp-project-dots');
+    if(dots.children.length!==count){
+      dots.innerHTML=group.slides.map((slide,index)=>
+        '<button type="button" class="xp-project-dot" data-xp-dot="'+index+'" aria-label="Show image '+(index+1)+': '+esc(slide.title)+'"></button>'
+      ).join('');
+    }
+    [...dots.children].forEach((button,index)=>{
+      const selected=index===galleryIndices[groupIndex];
+      button.classList.toggle('is-active',selected);
+      button.setAttribute('aria-current',String(selected));
+    });
     documentRequestLink(moment,row.querySelector('.xp-project-document'));
+    if(direction!==0)preloadNearbyPhotos(groupIndex);
   }
 
   function moveProjectSlide(groupIndex,direction) {
     const group=currentProjects[groupIndex];
-    if(!group)return;
+    if(!group||group.slides.length<2)return;
     const total=group.slides.length;
     galleryIndices[groupIndex]=(galleryIndices[groupIndex]+direction+total)%total;
-    renderProjectSlide(groupIndex);
+    renderProjectSlide(groupIndex,direction);
   }
 
   function closeEntry() {
     if($('#xp-modal').classList.contains('is-hidden'))return;
     $('#xp-modal').classList.add('is-hidden');
     document.body.classList.remove('locked');
+    galleryObserver?.disconnect();
+    galleryObserver=null;
+    galleryTimers.forEach(timer=>{if(timer)clearTimeout(timer);});
+    galleryTokens=galleryTokens.map(token=>token+1);
+    galleryTimers=[];
+    photoPreloads.clear();
+    swipeStart=null;
     currentEntry=null;
     currentProjects=[];
     galleryIndices=[];
@@ -508,14 +614,40 @@
     const step=event.target.closest('[data-xp-step]');
     if(step){moveProjectSlide(groupIndex,Number(step.dataset.xpStep));return;}
     const dot=event.target.closest('[data-xp-dot]');
-    if(dot){galleryIndices[groupIndex]=Number(dot.dataset.xpDot);renderProjectSlide(groupIndex);}
+    if(dot){
+      const next=Number(dot.dataset.xpDot);
+      const previous=galleryIndices[groupIndex];
+      if(next===previous)return;
+      galleryIndices[groupIndex]=next;
+      renderProjectSlide(groupIndex,next>previous?1:-1);
+    }
   });
+  $('#xp-project-stack').addEventListener('pointerdown',event=>{
+    if(event.pointerType==='mouse')return;
+    const frame=event.target.closest('.xp-project-photo-frame');
+    if(!frame||event.target.closest('button'))return;
+    const section=frame.closest('[data-xp-group]');
+    if(!section)return;
+    swipeStart={groupIndex:Number(section.dataset.xpGroup),x:event.clientX,y:event.clientY,pointerId:event.pointerId};
+    frame.setPointerCapture?.(event.pointerId);
+  },{passive:true});
+  $('#xp-project-stack').addEventListener('pointerup',event=>{
+    if(!swipeStart||event.pointerId!==swipeStart.pointerId)return;
+    const dx=event.clientX-swipeStart.x;
+    const dy=event.clientY-swipeStart.y;
+    const groupIndex=swipeStart.groupIndex;
+    swipeStart=null;
+    if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.3){
+      moveProjectSlide(groupIndex,dx<0?1:-1);
+    }
+  });
+  $('#xp-project-stack').addEventListener('pointercancel',()=>{swipeStart=null;});
   document.addEventListener('keydown',event=>{
     if($('#xp-modal').classList.contains('is-hidden'))return;
     if(event.key==='Escape'){event.preventDefault();closeEntry();return;}
     if(['ArrowRight','ArrowLeft'].includes(event.key)){
       const activeSection=document.activeElement?.closest('[data-xp-group]');
-      if(activeSection&&document.activeElement.matches('.xp-project-slider-controls button')){
+      if(activeSection&&document.activeElement.matches('.xp-project-gallery button')){
         event.preventDefault();
         moveProjectSlide(Number(activeSection.dataset.xpGroup),event.key==='ArrowRight'?1:-1);
         return;
