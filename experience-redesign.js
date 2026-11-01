@@ -234,6 +234,88 @@
   entries.find(item=>item.id==='bnf').stories.push(...bnfArchive.map(([id,title,body])=>photo('bnf-archive-'+id,title,body,'EXTENDED PHOTO ARCHIVE')));
   entries.find(item=>item.id==='nzc').stories.push(...nzcArchive.map(([id,title,body])=>photo('nzc-archive-'+id,title,body,'EXTENDED PHOTO ARCHIVE')));
 
+  // Project-level chapters: every image belongs to one clearly named activity.
+  // Indices refer to the complete story arrays above, including their archives.
+  // Individual slide captions are kept; the main project explanation stays put
+  // while visitors move among photographs inside that one project.
+  const projectSections = {
+    intelis:[
+      {title:'Appointment & professional responsibilities',items:[0],description:'My appointment as Deputy Project Manager at Intelis Solution Ltd. formalized a role spanning consultancy delivery, project communication and coordination of multidisciplinary teams. The public excerpt confirms the position while withholding private contractual details. A complete agreement may be requested for legitimate verification.'},
+      {title:'Green Port Strategy — international expert coordination',items:[1],description:'For the Chittagong Port Authority Green Port Strategy and Carbon Finance Readiness Study, I supported coordination with Jeremy J. Davis, engaged as Senior GHG & Green Port Strategy Advisor. This working discussion relates to technical direction on emissions assessment, green-port strategy and carbon-finance readiness. It documents consultation and coordination, without implying that the full assignment was completed.'},
+      {title:'Project delivery & technical follow-up',items:[2],description:'Alongside meetings with external advisers, I support work planning, internal follow-up, technical documentation and communication between specialists and project counterparts. The emphasis is on keeping inputs organized and deliverables moving through the required reviews.'}
+    ],
+    nzc:[
+      {title:'Appointment and carbon-credit assignment',items:[0],description:'This chapter establishes my Executive — Carbon Credit role at NetZero Carbon Limited. I became involved in project-development work connected to carbon markets, waste-to-resource concepts and field-based technical investigation. The public contract image is a redacted evidence excerpt.'},
+      {title:'Industrial exposure — first factory visit',items:[1,2],description:'My early factory visit with the NZC team helped me understand site operations, production environments and material-handling practices. The photographs record the industrial context that informed subsequent conversations about resource circulation and implementation feasibility.'},
+      {title:'Matuail — initial waste characterization',items:[3,4,13],description:'At Matuail Landfill, the field team manually separated mixed municipal waste into visible fractions and used field weighing to examine their composition. I participated in the exercise and documentation, connecting firsthand observations with early-stage waste-to-resource planning. These images show field methods, not a claim of laboratory-verified composition results.'},
+      {title:'Korean technical delegation — site engagement',items:[5,6,14,15],description:'I supported the visiting Korean technical team during meetings and on-site observations linked to the proposed Dhaka Resource Circulation Industrial Park. The field visits enabled exchange of local site information, practical questions and possible implementation approaches. The photographs document engagement, not a finalized investment or partnership.'},
+      {title:'CarboBon — exploring collaboration',items:[7,16],description:'Meetings with the CarboBon team considered possible areas of cooperation in carbon markets and related climate initiatives. My involvement included joining the coordination discussions and following the technical and organizational questions raised. These images represent exploratory engagement only.'},
+      {title:'IFC Dhaka — DRCIP investment presentation',items:[8,9,10,17,18],description:'At an International Finance Corporation meeting in Dhaka, I participated in review of the proposed Dhaka Resource Circulation Industrial Park and personally led the investment presentation. I introduced the waste-to-resource concept, outlined the proposed approach and discussed possible financing pathways with the team. The meeting should not be interpreted as a funding commitment.'},
+      {title:'KORA visit — joint field observation',items:[11,12,19],description:'During the KORA-associated delegation visit to Matuail, I accompanied the visitors as the on-site team demonstrated waste sorting and observations. The second characterization activity was separate from the earlier baseline field exercise and provided a shared basis for technical discussion.'}
+    ],
+    bnf:[
+      {title:'SoliX — internal project coordination',items:[0],description:'I contributed to internal discussions around the SoliX initiative as part of my B&F administrative and project-development responsibilities. The meeting documented early coordination and the exchange of implementation questions.'},
+      {title:'BioGreen Industries — factory operations review',items:[1,2,3,4,14,15,16,17,18,19],description:'The B&F BioGreen factory visit provided practical exposure to biomass briquette production, including feedstock handling, sawdust and wood-residue processing, machinery and plant organization. I observed and documented the workflow to better understand the operational setting; this was a site review, not an equipment-operating assignment.'},
+      {title:'Administrative materials & organizational evidence',items:[20,21],description:'This small archive records company-related materials used during the administrative assignment. Contact information on the original cards is permanently obscured in these public versions to protect privacy.'},
+      {title:'Bangladesh Secretariat — presenting the DRCIP concept',items:[5,6,22,23,24],description:'On 16 July 2026, I served as the principal presenter in a Local Government Division discussion about the proposed Matuail waste-to-resource initiative. The session covered the project concept and potential implementation considerations with government stakeholders. It was a consultation, not an approval or completed project.'},
+      {title:'DSCC — project presentation and dialogue',items:[7,8,25,26,29],description:'At Dhaka South City Corporation, I presented the resource-circulation proposal and participated in formal discussions with officials, team members and international visitors. The images show the meetings, institutional setting and follow-up dialogue supporting the project-development process.'},
+      {title:'Matuail — proposed project-site engagement',items:[9,10,27,28],description:'The Matuail site activities brought officials, stakeholders and project representatives together around displays and briefings for the proposed industrial park. I joined the field engagement to connect physical site conditions with the wider resource-recovery concept.'},
+      {title:'Operational review — B&F team inspection',items:[11,30],description:'I accompanied the B&F team during an operational site inspection with Director Md. Saiful Islam and colleagues. The visit involved observing processes and reviewing related materials for internal project coordination.'},
+      {title:'DSCC — follow-up and technical progress discussion',items:[12,13,31,32,33,34],description:'A subsequent DSCC meeting revisited the DRCIP proposal, its processing flow and the questions raised in earlier discussions. I contributed to presentation and review of project materials as the team worked through development and stakeholder feedback.'}
+    ],
+    eptisa:[
+      {title:'GIS Expert — contract evidence',items:[0],description:'My first appointment under the World Bank-supported LGCRRP assigned me GIS responsibilities through the Eptisa-led consultancy. This selected appointment excerpt is redacted to protect remuneration, service duration and private correspondence.'},
+      {title:'GIS mapping, project office & data management',items:[1,2,3,4,5],description:'Working as a GIS Expert, I helped prepare spatial layouts, geospatial data inputs and technical mapping support for municipal planning under the Local Government COVID-19 Response and Recovery Project. The photographs show the project office, colleagues and municipal-level digital documentation that supported this work.'},
+      {title:'Senior Trainer — second appointment',items:[6],description:'A separate appointment documents my subsequent role as Senior Trainer (Facilitator). The displayed excerpt is intentionally redacted; the work focused on participatory local preparedness planning and training-related responsibilities.'},
+      {title:'Municipal facilitation and Local Preparedness Plans',items:[7,8,9,10,11,12],description:'As a facilitator, I supported consultation with local governments and communities across southeastern Bangladesh. Sessions explored locally experienced hazards, including floods, landslides, cyclones and lightning, and helped turn community observations into practical Local Preparedness Plan inputs. I also organized and checked field information for project documentation.'}
+    ],
+    wave:[
+      {title:'Rural pilot survey — starting in the field',items:[0,1],description:'In February 2022, I began with rural household survey work in Rajshahi. Direct community interviews introduced me to questionnaire administration, listening to residents and accurately documenting local needs and feedback.'},
+      {title:'Master Trainer — preparing field volunteers',items:[2,3,4,5,6],description:'Following the three-day Citizen-Led Assessment foundation training in Khulna, I worked as a Master Trainer and later trained 22 volunteers in Rajshahi. The sessions focused on survey methods, ethical interaction, consistent questionnaires and practical readiness for community-based data collection.'},
+      {title:'Field monitoring and data-quality support',items:[7,8,9,10],description:'During May and June 2022, I helped monitor volunteer field surveys, review questionnaire quality and troubleshoot practical challenges on the ground. I provided feedback and guidance intended to keep the evidence-collection process consistent.'},
+      {title:'Education Out Loud — community facilitation',items:[11,12,13],description:'After facilitation training in Dhaka, I supported citizen-led sessions about education quality, participation and accountability. The activities engaged community participants in structured dialogue and encouraged them to identify priorities for improving local education services.'},
+      {title:'Rajshahi exchange — reflecting on lessons',items:[14,15],description:'The October 2023 exchange meeting created an opportunity for participants and stakeholders to discuss the citizen-led assessment process, practical learning and experiences from the field.'}
+    ],
+    'tib-research':[
+      {title:'Medical-waste governance — field enumeration',items:[0,1],description:'In a distinct project-based professional assignment with Transparency International Bangladesh, I collected information on medical-waste segregation and management in three government and three non-government healthcare facilities in Rajshahi. The work also considered oversight and accountability with the relevant municipal waste-management authority.'}
+    ],
+    education:[
+      {title:'ICT & science instruction',items:[0,1],description:'I taught ICT and science in classroom and online settings, prepared learning materials and guided students through challenging topics. This experience developed the communication and facilitation skills I later brought to training and stakeholder engagement.'}
+    ],
+    'tib-intern':[
+      {title:'PACTA programme — six-month internship',items:[0,1],description:'From November 2023 to April 2024, I completed a six-month placement with Transparency International Bangladesh in Rajshahi. I supported participatory anti-corruption work, community meetings and coordination with Active Citizens Group members and local institutions.'},
+      {title:'PACTApp — community-reported evidence',items:[2],description:'Within the internship, I supported use of PACTApp to document community-reported governance concerns and enable follow-up and learning. The work connected civic participation with practical digital reporting.'}
+    ],
+    'tib-volunteer':[
+      {title:'YES youth leadership and civic engagement',items:[0],description:'As a Youth Engagement & Support (YES) volunteer with TIB, I participated over several years in community-facing activities that promoted transparency, civic rights and accountable public services.'},
+      {title:'Digital governance — public portal review',items:[1],description:'Working alongside other volunteers, I reviewed information on the Rajshahi District web portal during 2021 and 2022 to consider accessibility and transparency of public-service information.'},
+      {title:'Public awareness and right-to-information outreach',items:[2,3],description:'I joined awareness events, seminars, community meetings and Right to Information-oriented outreach. These activities focused on making public accountability concepts more accessible and encouraging citizen participation.'}
+    ],
+    undp:[
+      {title:'Movers4Climate — practical youth action',items:[0,1],description:'Through the UNDP Movers4Climate challenge, I completed ten climate-oriented actions and engaged in peer learning with young advocates across the Asia-Pacific initiative. The experience emphasized accessible, practical climate engagement.'}
+    ],
+    'save-student':[
+      {title:'Rajshahi Division — student coordination',items:[0],description:'As Divisional Coordinator with Save the Student, I helped organize student activities and skill-development opportunities, mentor participants and represent the network across Rajshahi Division.'}
+    ]
+  };
+
+  function projectsFor(item){
+    const assigned=new Set();
+    const sections=(projectSections[item.id]||[]).map(group=>{
+      const slides=[];
+      group.items.forEach(index=>{
+        if(item.stories[index]&&!assigned.has(index)){
+          assigned.add(index);
+          slides.push(item.stories[index]);
+        }
+      });
+      return {...group,slides};
+    }).filter(group=>group.slides.length);
+    const remaining=item.stories.filter((_,index)=>!assigned.has(index));
+    if(remaining.length)sections.push({title:'Additional fieldwork and archive',description:'Further documented moments from this experience, retained with their original captions and context.',slides:remaining});
+    return sections;
+  }
+
   const $ = selector => document.querySelector(selector);
   const $$ = selector => [...document.querySelectorAll(selector)];
   const esc = text => String(text == null ? '' : text).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -244,7 +326,8 @@
   };
   let currentCategory='professional';
   let currentEntry=null;
-  let currentMoment=0;
+  let currentProjects=[];
+  let galleryIndices=[];
   let previousFocus=null;
 
   function card(item, index) {
@@ -284,80 +367,119 @@
     if(!item)return;
     previousFocus=document.activeElement;
     currentEntry=item;
-    currentMoment=0;
     $('#xp-modal-organization').textContent=item.org.toUpperCase();
     $('#xp-modal-title').textContent=item.position;
     $('#xp-modal-deck').textContent=item.detail;
     $('#xp-modal-period').textContent=item.period;
     $('#xp-modal-location').textContent=item.location;
-    $('#xp-modal-eyebrow').textContent=item.category.toUpperCase()+' / THE VISUAL STORY';
+    $('#xp-modal-eyebrow').textContent=item.category.toUpperCase()+' / PROJECTS & FIELDNOTES';
+    renderProjectStack();
     $('#xp-modal').classList.remove('is-hidden');
     document.body.classList.add('locked');
-    renderMoment();
+    $('.xp-modal-panel').scrollTop=0;
     $('#xp-modal-close').focus({preventScroll:true});
   }
 
-  function renderMoment() {
-    const item=currentEntry;
-    if(!item)return;
-    const moment=item.stories[currentMoment];
-    const count=item.stories.length;
-    const img=$('#xp-story-image');
-    const art=$('#xp-story-art');
-    const frame=$('.xp-story-frame');
-    if(moment.image) {
-      frame.style.setProperty('--xp-story-backdrop','url("'+moment.image+'")');
-      img.src=moment.image;
-      img.alt=moment.title+' — '+item.org;
-      img.classList.remove('is-hidden');
-      art.classList.add('is-hidden');
-    } else {
-      frame.style.setProperty('--xp-story-backdrop','none');
-      img.removeAttribute('src');
-      img.classList.add('is-hidden');
-      art.classList.remove('is-hidden');
-      const logo=$('#xp-story-logo');
-      logo.src=item.logo||'assets/tahatul.jpg';
-      logo.alt=item.org;
-    }
-    $('#xp-story-title').textContent=moment.title;
-    $('#xp-story-body').textContent=moment.body;
-    const documentLink=$('#xp-story-document');
-    if(moment.requestDocument){
+  function documentRequestLink(moment,documentLink) {
+    if(moment.requestDocument) {
       const subject='Request to verify Intelis Deputy Project Manager appointment';
       const body='Dear Md. Tahatul Azid,\n\nI would like to request a copy of your Intelis Solution Ltd. employment contract for verification.\n\nMy name and organization:\nPurpose of the request:\n\nThank you.';
       documentLink.href='mailto:litunurp18@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
       documentLink.removeAttribute('download');
       documentLink.textContent='REQUEST CONTRACT PDF BY EMAIL ↗';
       documentLink.classList.remove('is-hidden');
-    }else if(moment.document){
+    } else if(moment.document) {
       documentLink.href=moment.document;
       documentLink.download=moment.document.split('/').pop();
       documentLink.textContent='DOWNLOAD REDACTED CONTRACT IMAGE ↓';
       documentLink.classList.remove('is-hidden');
-    }else{
+    } else {
       documentLink.removeAttribute('href');
+      documentLink.removeAttribute('download');
       documentLink.classList.add('is-hidden');
     }
-    $('#xp-story-track').textContent=moment.tag+' / '+String(currentMoment+1).padStart(2,'0');
-    $('#xp-story-counter').textContent=String(currentMoment+1).padStart(2,'0')+' / '+String(count).padStart(2,'0');
-    $('#xp-story-tags').innerHTML=item.skills.map(tag=>'<span>'+esc(tag)+'</span>').join('');
-    $('#xp-story-prev').disabled=count<2;
-    $('#xp-story-next').disabled=count<2;
-    $('#xp-story-mini-nav').innerHTML=item.stories.map((story,index)=>'<button type="button" class="'+(index===currentMoment?'is-active':'')+'" data-xp-moment="'+index+'" aria-label="Moment '+(index+1)+': '+esc(story.title)+'" aria-current="'+(index===currentMoment?'step':'false')+'">'+(index+1)+'</button>').join('');
   }
 
-  function moveMoment(direction) {
+  function renderProjectStack() {
     if(!currentEntry)return;
-    const n=currentEntry.stories.length;
-    currentMoment=(currentMoment+direction+n)%n;
-    renderMoment();
+    currentProjects=projectsFor(currentEntry);
+    galleryIndices=currentProjects.map(()=>0);
+    $('#xp-project-stack').innerHTML=currentProjects.map((group,groupIndex)=>{
+      const number=String(groupIndex+1).padStart(2,'0');
+      const total=String(currentProjects.length).padStart(2,'0');
+      return '<section class="xp-project-row" data-xp-group="'+groupIndex+'" aria-labelledby="xp-project-heading-'+groupIndex+'">'
+        +'<div class="xp-project-gallery"><div class="xp-project-photo-frame">'
+        +'<img class="xp-project-image" alt="" loading="lazy">'
+        +'<div class="xp-project-placeholder is-hidden"><img src="'+esc(currentEntry.logo||'assets/tahatul.jpg')+'" alt=""><span>PROJECT DOCUMENTATION / '+number+'</span></div>'
+        +'<span class="xp-project-photo-stamp">FIELDNOTE / '+number+'</span></div>'
+        +'<div class="xp-project-slider-controls">'
+        +'<button type="button" class="xp-project-prev" data-xp-step="-1" aria-label="Previous image in '+esc(group.title)+'">←</button>'
+        +'<span class="xp-project-counter" aria-live="polite"></span>'
+        +'<button type="button" class="xp-project-next" data-xp-step="1" aria-label="Next image in '+esc(group.title)+'">→</button>'
+        +'<div class="xp-project-dots" role="group" aria-label="Select image in '+esc(group.title)+'"></div>'
+        +'</div></div>'
+        +'<div class="xp-project-copy"><span class="xp-project-index">PROJECT / ACTIVITY '+number+' OF '+total+'</span>'
+        +'<h3 id="xp-project-heading-'+groupIndex+'">'+esc(group.title)+'</h3>'
+        +'<p class="xp-project-description">'+esc(group.description)+'</p>'
+        +'<div class="xp-project-photo-note"><span class="xp-project-photo-label">PHOTO CONTEXT</span>'
+        +'<strong class="xp-project-photo-title"></strong><p class="xp-project-photo-detail"></p></div>'
+        +'<a class="xp-story-document xp-project-document is-hidden" rel="noopener noreferrer">DOCUMENT EVIDENCE</a>'
+        +'<div class="xp-project-tags">'+currentEntry.skills.map(tag=>'<span>'+esc(tag)+'</span>').join('')+'</div>'
+        +'<p class="xp-project-disclaimer">Photographs document participation and fieldwork; meetings, proposals and site visits do not by themselves imply a completed project or confirmed financing.</p>'
+        +'</div></section>';
+    }).join('');
+    currentProjects.forEach((_,index)=>renderProjectSlide(index));
   }
+
+  function renderProjectSlide(groupIndex) {
+    const group=currentProjects[groupIndex];
+    if(!group)return;
+    const moment=group.slides[galleryIndices[groupIndex]];
+    const row=$('[data-xp-group="'+groupIndex+'"]');
+    if(!row)return;
+    const img=row.querySelector('.xp-project-image');
+    const art=row.querySelector('.xp-project-placeholder');
+    const frame=row.querySelector('.xp-project-photo-frame');
+    if(moment.image) {
+      img.src=moment.image;
+      img.alt=moment.title+' — '+currentEntry.org;
+      img.classList.remove('is-hidden');
+      art.classList.add('is-hidden');
+      // Soft photo wash fills unused space while the photo itself stays uncropped.
+      frame.style.setProperty('--xp-project-backdrop','url("'+moment.image+'")');
+    } else {
+      img.removeAttribute('src');
+      img.classList.add('is-hidden');
+      art.classList.remove('is-hidden');
+      frame.style.setProperty('--xp-project-backdrop','none');
+    }
+    row.querySelector('.xp-project-photo-title').textContent=moment.title;
+    row.querySelector('.xp-project-photo-detail').textContent=moment.body;
+    const count=group.slides.length;
+    row.querySelector('.xp-project-counter').textContent=String(galleryIndices[groupIndex]+1).padStart(2,'0')+' / '+String(count).padStart(2,'0');
+    row.querySelector('.xp-project-prev').disabled=count===1;
+    row.querySelector('.xp-project-next').disabled=count===1;
+    row.querySelector('.xp-project-dots').innerHTML=group.slides.map((slide,index)=>
+      '<button type="button" class="xp-project-dot'+(index===galleryIndices[groupIndex]?' is-active':'')+'" data-xp-dot="'+index+'" aria-label="Show image '+(index+1)+': '+esc(slide.title)+'" aria-current="'+(index===galleryIndices[groupIndex]?'true':'false')+'"></button>'
+    ).join('');
+    documentRequestLink(moment,row.querySelector('.xp-project-document'));
+  }
+
+  function moveProjectSlide(groupIndex,direction) {
+    const group=currentProjects[groupIndex];
+    if(!group)return;
+    const total=group.slides.length;
+    galleryIndices[groupIndex]=(galleryIndices[groupIndex]+direction+total)%total;
+    renderProjectSlide(groupIndex);
+  }
+
   function closeEntry() {
     if($('#xp-modal').classList.contains('is-hidden'))return;
     $('#xp-modal').classList.add('is-hidden');
     document.body.classList.remove('locked');
     currentEntry=null;
+    currentProjects=[];
+    galleryIndices=[];
     previousFocus?.focus({preventScroll:true});
   }
 
@@ -379,19 +501,26 @@
   });
   $('#xp-modal-close').addEventListener('click',closeEntry);
   $('[data-xp-close]').addEventListener('click',closeEntry);
-  $('#xp-story-prev').addEventListener('click',()=>moveMoment(-1));
-  $('#xp-story-next').addEventListener('click',()=>moveMoment(1));
-  $('#xp-story-mini-nav').addEventListener('click',event=>{
-    const button=event.target.closest('[data-xp-moment]');
-    if(!button)return;
-    currentMoment=Number(button.dataset.xpMoment);
-    renderMoment();
+  $('#xp-project-stack').addEventListener('click',event=>{
+    const section=event.target.closest('[data-xp-group]');
+    if(!section)return;
+    const groupIndex=Number(section.dataset.xpGroup);
+    const step=event.target.closest('[data-xp-step]');
+    if(step){moveProjectSlide(groupIndex,Number(step.dataset.xpStep));return;}
+    const dot=event.target.closest('[data-xp-dot]');
+    if(dot){galleryIndices[groupIndex]=Number(dot.dataset.xpDot);renderProjectSlide(groupIndex);}
   });
   document.addEventListener('keydown',event=>{
     if($('#xp-modal').classList.contains('is-hidden'))return;
     if(event.key==='Escape'){event.preventDefault();closeEntry();return;}
-    if(event.key==='ArrowRight'){event.preventDefault();moveMoment(1);return;}
-    if(event.key==='ArrowLeft'){event.preventDefault();moveMoment(-1);return;}
+    if(['ArrowRight','ArrowLeft'].includes(event.key)){
+      const activeSection=document.activeElement?.closest('[data-xp-group]');
+      if(activeSection&&document.activeElement.matches('.xp-project-slider-controls button')){
+        event.preventDefault();
+        moveProjectSlide(Number(activeSection.dataset.xpGroup),event.key==='ArrowRight'?1:-1);
+        return;
+      }
+    }
     if(event.key==='Tab'){
       const controls=$$('#xp-modal button:not([disabled]), #xp-modal a[href]').filter(el=>el.getClientRects().length);
       const first=controls[0],last=controls[controls.length-1];
